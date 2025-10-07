@@ -8,7 +8,7 @@ services:
       - key: NODE_ENV
         value: production
       - key: DATABASE_URL
-        fromSecret: database_url
+        value: postgresql://sabrina:yg0hTHS2GKw81EGHaPEPFbDhTpVGhdtX@dpg-d3im1vili9vc73euoi80-a/sabrina_ynqa
       - key: JWT_SECRET
         generateValue: true
       - key: REFRESH_SECRET
@@ -29,7 +29,3 @@ services:
         value: https://your-frontend-url.com
       - key: URL_CORSC_DEVELOPMENT_CLIENT
         value: http://localhost:5173
-    databases:
-      - name: naydreams-db
-        databaseName: naydreams
-        user: naydreams_user
