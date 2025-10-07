@@ -1,6 +1,6 @@
 import { Button, Image } from "@heroui/react";
 import { useTranslation } from "react-i18next";
-import NaysDreamsIcon from "../../assets/naysDream.svg";
+import NayDreamsIcon from "../../assets/naysDream.svg";
 import MarcoFrame from "../../assets/marco.png";
 import fondo from "../../assets/fondo.jpg";
 
@@ -12,7 +12,7 @@ export const HeroSection = () => {
             className="relative bg-gradient-to-br from-pink-400 via-pink-500 to-pink-600 pb-20 px-4 overflow-hidden min-h-screen flex items-center"
             data-aos="fade-in"
         >
-            <img alt="Nay's Dreams fondo" className="absolute top-0 left-0 w-full h-full object-cover opacity-80 -z-10  mask-radial-[100%100%] mask-radial-from-75% mask-radial-at-left" src={fondo} />
+            <img alt="Dreams fondo" className="absolute top-0 left-0 w-full h-full object-cover opacity-80 -z-10  mask-radial-[100%100%] mask-radial-from-75% mask-radial-at-left" src={fondo} />
 
             <div className="max-w-7xl mx-auto text-center">
                 <div className="relative z-10">
@@ -40,8 +40,8 @@ export const HeroSection = () => {
                             />
 
                             <img
-                                src={NaysDreamsIcon}
-                                alt="Nay's Dreams"
+                                src={NayDreamsIcon}
+                                alt="Dreams"
                                 className="absolute h-24 md:h-40 w-auto z-20"
                                 style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
                             />

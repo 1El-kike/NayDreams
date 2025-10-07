@@ -1,4 +1,4 @@
-import NaysDreamsIcon from "../assets/naysDreams.svg";
+import NaysDreamsIcon from "../assets/naysDream.svg";
 import { useTranslation } from "react-i18next";
 
 export const Footer = () => {
