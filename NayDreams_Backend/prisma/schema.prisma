@@ -1,0 +1,83 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  CUSTOMER
+}
+
+model User {
+  id      Int      @id @default(autoincrement())
+  email   String   @unique
+  password String
+  name     String?
+  role      Role     @default(CUSTOMER)
+  posts     Post[]
+  products  Product[]
+  reviews  Review[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Post {
+  id        Int      @id @default(autoincrement())
+  title     String
+  content   String?
+  published Boolean  @default(false)
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  Int
+}
+
+model Product {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?
+  image       String?
+  image2      String?
+  image3      String?
+  image4      String?
+  price       Float
+  stock       Int      @default(0)
+  rating      Float    @default(5.0)
+  categoryId  Int
+  category    Category @relation(fields: [categoryId], references: [id])
+  createdById Int
+  createdBy   User     @relation(fields: [createdById], references: [id])
+  reviews     Review[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  deletedAt   DateTime?
+}
+
+model Category {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  description String?
+  products    Product[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Review {
+  id        Int     @id @default(autoincrement())
+  productId Int
+  product   Product @relation(fields: [productId], references: [id])
+  userId    Int
+  user      User    @relation(fields: [userId], references: [id])
+  rating    Int
+  comment   String
+  createdAt DateTime @default(now())
+}
