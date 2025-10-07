@@ -22,10 +22,10 @@ services:
       - key: EMAIL_SUPER_ADMIN
         value: admin@naysdreams.com
       - key: URL_CORSC_PRODUCTION
-        value: https://your-frontend-url.com
+        value: https://naydreams.staticrun.app
       - key: URL_CORSC_DEVELOPMENT
         value: http://localhost:5173
       - key: URL_CORSC_PRODUCTION_CLIENT
-        value: https://your-frontend-url.com
+        value: https://naydreams.staticrun.app
       - key: URL_CORSC_DEVELOPMENT_CLIENT
         value: http://localhost:5173
