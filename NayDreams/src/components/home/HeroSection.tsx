@@ -1,4 +1,4 @@
-import { Button } from "@heroui/react";
+import { Button, Image } from "@heroui/react";
 import { useTranslation } from "react-i18next";
 import NaysDreamsIcon from "../../assets/naysDream.svg";
 import MarcoFrame from "../../assets/marco.png";
@@ -31,11 +31,14 @@ export const HeroSection = () => {
                             data-aos="fade-up"
                             data-aos-delay="300"
                         >
-                            <img
-                                src={MarcoFrame}
-                                alt="Frame"
+                            <Image
+                                isBlurred
                                 className="h-48 md:h-80 w-auto relative z-10"
+                                width={"100%"}
+                                alt="Frame"
+                                src={MarcoFrame}
                             />
+
                             <img
                                 src={NaysDreamsIcon}
                                 alt="Nay's Dreams"

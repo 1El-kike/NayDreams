@@ -1,0 +1,35 @@
+services:
+  - type: web
+    name: naydreams-backend
+    runtime: node
+    buildCommand: npm install && npm run prisma:generate && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromSecret: database_url
+      - key: JWT_SECRET
+        generateValue: true
+      - key: REFRESH_SECRET
+        generateValue: true
+      - key: PASSWORD_SUPER_ADMIN
+        value: your_super_admin_password
+      - key: NAME_SUPER_ADMIN
+        value: Super Admin
+      - key: NUMBER_SUPER_ADMIN
+        value: "123456789"
+      - key: EMAIL_SUPER_ADMIN
+        value: admin@naysdreams.com
+      - key: URL_CORSC_PRODUCTION
+        value: https://your-frontend-url.com
+      - key: URL_CORSC_DEVELOPMENT
+        value: http://localhost:5173
+      - key: URL_CORSC_PRODUCTION_CLIENT
+        value: https://your-frontend-url.com
+      - key: URL_CORSC_DEVELOPMENT_CLIENT
+        value: http://localhost:5173
+    databases:
+      - name: naydreams-db
+        databaseName: naydreams
+        user: naydreams_user
