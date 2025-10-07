@@ -1,6 +1,4 @@
-import axios, { type AxiosInstance } from "axios";
 import type { AuthModel } from "./_models";
-import { port } from "../../config/env";
 
 const AUTH_LOCAL_STORAGE_KEY = "kt-auth-react-v";
 
@@ -48,11 +46,6 @@ const removeAuth = () => {
     console.error("AUTH LOCAL STORAGE REMOVE ERROR", error);
   }
 };
-
-const axiosI: AxiosInstance = axios.create({
-  baseURL: port,
-  withCredentials: true,
-});
 
 export function setupAxios(axios: any) {
   axios.defaults.headers.Accept = "application/json";

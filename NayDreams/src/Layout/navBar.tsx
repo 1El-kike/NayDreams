@@ -1,7 +1,8 @@
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button, NavbarMenuToggle, NavbarMenu, NavbarMenuItem, Dropdown, DropdownTrigger, Avatar, DropdownMenu, DropdownItem } from "@heroui/react";
+import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Button, NavbarMenuToggle, NavbarMenu, NavbarMenuItem, Dropdown, DropdownTrigger, Avatar, DropdownMenu, DropdownItem } from "@heroui/react";
 import { useState } from "react";
 import { useAuth } from "../auth/useAuth";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 export const AcmeLogo = () => {
     return (
@@ -53,35 +54,35 @@ export const NavBar = () => {
             </NavbarBrand>
             <NavbarContent className="hidden sm:flex gap-10 text-white" justify="center">
                 <NavbarItem >
-                    <Link aria-current="page" className="text-white" href="/init">
+                    <Link aria-current="page" className="text-white" to="/">
                         {t("Home")}
                     </Link>
                 </NavbarItem>
                 {
                     currentUser?.role === "ADMIN" &&
                     <NavbarItem>
-                        <Link className="text-white" href="/products/management">
+                        <Link className="text-white" to="/products/management">
                             {t("Management")}
                         </Link>
                     </NavbarItem>
                 }
                 <NavbarItem>
-                    <Link className="text-white" href="/products">
+                    <Link className="text-white" to="/products">
                         {t("Products")}
                     </Link>
                 </NavbarItem>
                 <NavbarItem>
-                    <Link className="text-white" href="info">
+                    <Link className="text-white" to="/info">
                         {t("About")}
                     </Link>
                 </NavbarItem>
                 <NavbarItem>
-                    <Link className="text-white" href="contact">
+                    <Link className="text-white" to="/contact">
                         {t("Contact")}
                     </Link>
                 </NavbarItem>
                 <NavbarItem>
-                    <Link className="text-white" href="envoltura">
+                    <Link className="text-white" to="/envoltura">
                         {t("Wrappers")}
                     </Link>
                 </NavbarItem>
@@ -134,10 +135,10 @@ export const NavBar = () => {
                 :
                 <NavbarContent justify="end">
                     <NavbarItem className="hidden lg:flex text-white">
-                        <Link href="auth/">{t("Login")}</Link>
+                        <Link to="/auth/login">{t("Login")}</Link>
                     </NavbarItem>
                     <NavbarItem>
-                        <Button as={Link} color="danger" href="#" variant="shadow">
+                        <Button as={Link} color="danger" to="/auth/register" variant="shadow">
                             {t("Sign Up")}
                         </Button>
                     </NavbarItem>
@@ -157,7 +158,7 @@ export const NavBar = () => {
                     <NavbarMenuItem key={`${item}-${index}`}>
                         <Link
                             className="w-full flex items-center px-6 py-4 text-gray-900 hover:bg-white/30 transition-all duration-250 border-b border-white/20 hover:border-white/40 hover:translate-x-2 font-medium"
-                            href={item.link}
+                            to={item.link}
                         >
                             {item.name}
                         </Link>

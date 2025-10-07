@@ -1,14 +1,16 @@
 import { Route, Routes } from 'react-router-dom'
-import { Login } from '../components/login'
 import { AuthLayout } from '../layout/AuthLayout'
 import { ForgotPassword } from '../components/forgotPassword'
+import { LoginPage } from './LoginPage'
+import { RegisterPage } from './RegisterPage'
 
 const AuthPage = () => (
     <Routes>
         <Route element={<AuthLayout />}>
-            <Route path='login' element={<Login />} />
+            <Route path='login' element={<LoginPage />} />
+            <Route path='register' element={<RegisterPage />} />
             <Route path='forgot-password' element={<ForgotPassword />} />
-            <Route index element={<Login />} />
+            <Route index element={<LoginPage />} />
         </Route>
     </Routes>
 )

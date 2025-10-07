@@ -67,7 +67,7 @@ export const LoginForm = () => {
                 </Link>
             </div>
 
-            <Button type="submit" color="primary" className="w-full" isLoading={isLoading}>
+            <Button type="submit" color="danger" className="w-full" isLoading={isLoading}>
                 {isLoading ? <Spinner size="sm" /> : "Sign In"}
             </Button>
 
