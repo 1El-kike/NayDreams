@@ -56,7 +56,7 @@ export function setupAxios(axios: any) {
       if (auth && auth.api_token) {
         config.headers.Authorization = `Bearer ${auth.api_token}`;
       }
-      //La configuración modificada se retorna, lo que permite que la solicitud continúe con los nuevos encabezados.
+
       return config;
     },
     (err: any) => Promise.reject(err)

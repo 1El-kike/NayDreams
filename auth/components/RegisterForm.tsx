@@ -96,7 +96,7 @@ export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
             />
 
             <Button type="submit" color="primary" className="w-full" isLoading={isLoading}>
-                {isLoading ? <Spinner size="sm" /> : "Create Account"}
+                {isLoading ? <Spinner size="sm" /> : "Create"}
             </Button>
 
             {form.formState.errors.root && (

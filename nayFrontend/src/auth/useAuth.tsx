@@ -65,8 +65,7 @@ const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
         </AuthContext.Provider>
     );
 };
-//La función AuthInit es un componente funcional de React que
-//se encarga de inicializar el estado de autenticación de un usuario antes de renderizar la aplicación.
+
 const AuthInit: FC<PropsWithChildren> = ({ children }) => {
     const { auth, logout, setCurrentUser, saveAuth } = useAuth();
     const didRequest = useRef(false);
