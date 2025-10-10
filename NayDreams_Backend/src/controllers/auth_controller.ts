@@ -2,14 +2,14 @@ import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { envs } from "../config/env.js";
-import prisma from "../models/auth_model.js";
+import prisma from "../prisma.js";
 
 export const register = async (req: Request, res: Response): Promise<void> => {
   try {
     const { email, password, name } = req.body;
 
     // Check if user already exists
-    const existingUser = await prisma.findUnique({
+    const existingUser = await prisma.user.findUnique({
       where: { email },
     });
 
@@ -22,7 +22,7 @@ export const register = async (req: Request, res: Response): Promise<void> => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Create user
-    const user = await prisma.create({
+    const user = await prisma.user.create({
       data: {
         email,
         password: hashedPassword,
@@ -52,7 +52,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
     const { email, password } = req.body;
 
     // Find user
-    const user = await prisma.findUnique({
+    const user = await prisma.user.findUnique({
       where: { email },
     });
 
@@ -115,7 +115,7 @@ export const verifyToken = async (
       return;
     }
 
-    const user = await prisma.findUnique({
+    const user = await prisma.user.findUnique({
       where: { id: decoded.userId },
       select: {
         id: true,
@@ -154,7 +154,7 @@ export const refreshToken = async (
 
     const decoded = jwt.verify(token, envs.REFRESH_SECRET) as any;
 
-    const user = await prisma.findUnique({
+    const user = await prisma.user.findUnique({
       where: { id: decoded.userId },
       select: {
         id: true,

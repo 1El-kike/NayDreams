@@ -1,12 +1,12 @@
 import { NextFunction, Request, Response } from "express";
-import prisma from "../models/products_model.js";
+import prisma from "../prisma.js";
 
 export const getAllProducts = async (
   req: Request,
   res: Response
 ): Promise<void> => {
   try {
-    const products = await prisma.findMany({
+    const products = await prisma.product.findMany({
       where: {
         deletedAt: null,
       },
@@ -46,7 +46,7 @@ export const createProduct = async (
       ? `uploads/${files.image4[0].filename}`
       : null;
 
-    const product = await prisma.create({
+    const product = await prisma.product.create({
       data: {
         name,
         description,
@@ -78,7 +78,7 @@ export const getProductById = async (
 ): Promise<void> => {
   try {
     const { id } = req.params;
-    const product = await prisma.findUnique({
+    const product = await prisma.product.findUnique({
       where: {
         id: parseInt(id),
         deletedAt: null,
@@ -129,7 +129,7 @@ export const updateProduct = async (
     if (files?.image5?.[0])
       updateData.image5 = `uploads/${files.image5[0].filename}`;
 
-    const product = await prisma.update({
+    const product = await prisma.product.update({
       where: {
         id: parseInt(id),
         deletedAt: null,
@@ -154,7 +154,7 @@ export const deleteProduct = async (
   try {
     const { id } = req.params;
 
-    await prisma.update({
+    await prisma.product.update({
       where: {
         id: parseInt(id),
       },

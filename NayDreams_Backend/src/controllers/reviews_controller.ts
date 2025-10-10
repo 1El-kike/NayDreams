@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import prisma from "../models/reviews_model";
-import prisma_product from "../models/products_model";
+import prisma from "../prisma.js";
 
 export const createReview = async (
   req: Request,
@@ -17,7 +16,7 @@ export const createReview = async (
     }
 
     // Validar que el producto existe
-    const product = await prisma_product.findUnique({
+    const product = await prisma.product.findUnique({
       where: { id: parseInt(productId), deletedAt: null },
     });
 
@@ -27,7 +26,7 @@ export const createReview = async (
     }
 
     // Verificar que el usuario no haya reseñado este producto antes
-    const existingReview = await prisma.findFirst({
+    const existingReview = await prisma.review.findFirst({
       where: {
         productId: parseInt(productId),
         userId: userId,
@@ -42,7 +41,7 @@ export const createReview = async (
     }
 
     // Crear la reseña
-    const review = await prisma.create({
+    const review = await prisma.review.create({
       data: {
         productId: parseInt(productId),
         userId: userId,
@@ -60,7 +59,7 @@ export const createReview = async (
     });
 
     // Calcular el nuevo rating promedio del producto
-    const allReviews = await prisma.findMany({
+    const allReviews = await prisma.review.findMany({
       where: { productId: parseInt(productId) },
       select: { rating: true },
     });
@@ -72,7 +71,7 @@ export const createReview = async (
       ) / allReviews.length;
 
     // Actualizar el rating del producto
-    await prisma_product.update({
+    await prisma.product.update({
       where: { id: parseInt(productId) },
       data: { rating: averageRating },
     });
@@ -95,7 +94,7 @@ export const getReviewsByProduct = async (
   try {
     const { productId } = req.params;
 
-    const reviews = await prisma.findMany({
+    const reviews = await prisma.review.findMany({
       where: { productId: parseInt(productId) },
       include: {
         user: {
