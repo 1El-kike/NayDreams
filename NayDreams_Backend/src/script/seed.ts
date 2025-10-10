@@ -1,9 +1,7 @@
 import bcrypt from "bcrypt";
-import prisma from "../models/user_model";
-import prisma_category from "../models/category_model";
 import { PrismaClient } from "@prisma/client";
 
-const prisma_desconet = new PrismaClient();
+const prisma = new PrismaClient();
 
 async function seedAdminUser() {
   try {
@@ -12,7 +10,7 @@ async function seedAdminUser() {
     const adminName = process.env.NAME_SUPER_ADMIN || "Super Admin";
 
     // Check if admin user already exists
-    const existingAdmin = await prisma.findUnique({
+    const existingAdmin = await prisma.user.findUnique({
       where: { email: adminEmail },
     });
 
@@ -23,7 +21,7 @@ async function seedAdminUser() {
       const hashedPassword = await bcrypt.hash(adminPassword, 10);
 
       // Create admin user
-      const adminUser = await prisma.create({
+      const adminUser = await prisma.user.create({
         data: {
           email: adminEmail,
           password: hashedPassword,
@@ -43,11 +41,11 @@ async function seedAdminUser() {
     ];
 
     for (const cat of categories) {
-      const existingCat = await prisma_category.findUnique({
+      const existingCat = await prisma.category.findUnique({
         where: { name: cat.name },
       });
       if (!existingCat) {
-        await prisma_category.create({
+        await prisma.category.create({
           data: cat,
         });
         console.log(`Category ${cat.name} created`);
@@ -58,7 +56,7 @@ async function seedAdminUser() {
   } catch (error) {
     console.error("Error seeding:", error);
   } finally {
-    await prisma_desconet.$disconnect();
+    await prisma.$disconnect();
   }
 }
 
