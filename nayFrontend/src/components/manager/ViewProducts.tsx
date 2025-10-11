@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { Button, Card, CardBody, CardHeader, Image, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, addToast } from "@heroui/react";
+import { Button, Card, CardBody, CardHeader, Image, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, addToast, Spinner } from "@heroui/react";
 import { useTranslation } from "react-i18next";
 import { useProducts } from "../../hooks/useProducts";
 import type { Product } from "../../hooks/useProducts";
 import { useDeleteProduct } from "../../hooks/useDeleteProduct";
-import { EyeIcon, PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
+import { EyeIcon, PencilIcon, PlusCircleIcon, TrashIcon } from "@heroicons/react/24/outline";
 
 export const ViewProducts = () => {
     const { t } = useTranslation();
@@ -154,7 +154,7 @@ export const ViewProducts = () => {
                     </ModalBody>
                     <ModalFooter>
                         <Button variant="light" onPress={() => setDeleteModal(false)}>{t("Cancel")}</Button>
-                        <Button color="danger" onPress={confirmDelete}>{t("Delete")}</Button>
+                        <Button startContent={deleteLoading ? <Spinner className="w-4 h-4" /> : <TrashIcon className="w-4 h-4" />} color="danger" onPress={confirmDelete}>{t("Delete")}</Button>
                     </ModalFooter>
                 </ModalContent>
             </Modal>

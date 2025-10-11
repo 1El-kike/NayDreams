@@ -147,6 +147,51 @@ export const updateProduct = async (
   }
 };
 
+export const searchProducts = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const { q } = req.query;
+    const searchTerm = q as string;
+
+    if (!searchTerm) {
+      res.status(400).json({ message: "Search term is required" });
+      return;
+    }
+
+    const products = await prisma.product.findMany({
+      where: {
+        deletedAt: null,
+        OR: [
+          {
+            name: {
+              contains: searchTerm,
+              mode: "insensitive",
+            },
+          },
+          {
+            category: {
+              name: {
+                contains: searchTerm,
+                mode: "insensitive",
+              },
+            },
+          },
+        ],
+      },
+      include: {
+        category: true,
+        createdBy: true,
+      },
+    });
+
+    res.status(200).json(products);
+  } catch (error) {
+    res.status(500).json({ message: "Error searching products" });
+  }
+};
+
 export const deleteProduct = async (
   req: Request,
   res: Response

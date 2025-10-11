@@ -7,6 +7,7 @@ import { useAuth } from "../auth/useAuth";
 import { PrivateRoutes } from "./private_router";
 import { AuthPage } from "../auth/page/auth_router";
 import { HeroUIProvider } from "@heroui/react";
+import { ScrollToTop } from "../components/ScrollToTop";
 
 export const Router = () => {
 
@@ -14,6 +15,7 @@ export const Router = () => {
 
 
   return <BrowserRouter basename={PUBLIC_URL}>
+    <ScrollToTop />
     <HeroUIProvider >
       <Routes>
         <Route element={<App />}>

@@ -3,9 +3,11 @@ import { useTranslation } from "react-i18next";
 import NayDreamsIcon from "../../assets/naysDream.svg";
 import MarcoFrame from "../../assets/marco.png";
 import fondo from "../../assets/fondo.jpg";
+import { useNavigate } from "react-router-dom";
 
 export const HeroSection = () => {
     const { t } = useTranslation();
+    const navigate = useNavigate()
 
     return (
         <section
@@ -63,6 +65,7 @@ export const HeroSection = () => {
                     >
                         <Button
                             size="lg"
+                            onPress={() => navigate('/products')}
                             className="bg-white text-pink-600 hover:bg-pink-50 px-8 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg"
                         >
                             {t("Explore Products")}
@@ -70,6 +73,7 @@ export const HeroSection = () => {
                         <Button
                             size="lg"
                             variant="bordered"
+                            onPress={() => navigate('/info')}
                             className="border-white text-white hover:bg-white hover:text-pink-600 px-8 py-3 rounded-full font-semibold transition-all duration-300 shadow-lg"
                         >
                             {t("Learn More")}

@@ -20,7 +20,7 @@ export const EditCategoryForm = () => {
     const { updateCategory, isLoading, message } = useUpdateCategory();
 
     const handleCategorySelect = (id: number) => {
-        const cat = categories?.find(c => c.id === id);
+        const cat: any = categories?.find(c => c.id === id);
         if (cat) {
             setSelectedCategory(cat);
             setValue("id", cat.id);

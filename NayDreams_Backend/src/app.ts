@@ -10,6 +10,7 @@ import cors from "cors";
 import authRouter from "./routers/auth_router.js";
 import productsRouter from "./routers/products_router.js";
 import reviewsRouter from "./routers/reviews_router.js";
+import categoriesRouter from "./routers/categories_router.js";
 
 const app = express();
 const server = http.createServer(app);
@@ -43,5 +44,6 @@ app.use(morgan("dev"));
 app.use("/auth", authRouter);
 app.use("/products", productsRouter);
 app.use("/reviews", reviewsRouter);
+app.use("/categories", categoriesRouter);
 
 export { server };

@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useProducts } from "../../hooks/useProducts";
+import { useSearchProducts } from "../../hooks/useSearchProducts";
+import { useSearchParams } from "react-router-dom";
 import { Spinner } from "@heroui/react";
 import { ProductHeader } from "./ProductHeader";
 import { ProductFilter } from "./ProductFilter";
@@ -17,11 +19,22 @@ const categories = [
 export const Product = () => {
     const { t } = useTranslation();
     const [selectedCategory, setSelectedCategory] = useState<number>(0);
-    const { data: products, isLoading, error } = useProducts();
+    const [searchParams] = useSearchParams();
+    const searchTerm = searchParams.get('q') || '';
 
-    const filteredProducts = selectedCategory === 0
-        ? products
-        : products?.filter(product => product.categoryId === selectedCategory);
+    const { data: products, isLoading: isLoadingProducts, error: errorProducts } = useProducts();
+    const { data: searchResults, isLoading: isLoadingSearch, error: errorSearch } = useSearchProducts(searchTerm);
+
+    const isSearch = !!searchTerm;
+    const data = isSearch ? searchResults : products;
+    const isLoading = isSearch ? isLoadingSearch : isLoadingProducts;
+    const error = isSearch ? errorSearch : errorProducts;
+
+    const filteredProducts = isSearch
+        ? data
+        : (selectedCategory === 0
+            ? products
+            : products?.filter(product => product.categoryId === selectedCategory));
 
     if (isLoading) {
         return (
@@ -42,10 +55,18 @@ export const Product = () => {
     return (
         <div className="max-w-7xl mx-auto">
             <ProductHeader />
-            <ProductFilter
-                categories={categories}
-                selectedCategory={selectedCategory}
-                setSelectedCategory={setSelectedCategory} />
+            {isSearch ? (
+                <div className="mb-6 text-center">
+                    <h2 className="text-2xl font-bold text-gray-800">
+                        {t("Search results for")}: "{searchTerm}"
+                    </h2>
+                </div>
+            ) : (
+                <ProductFilter
+                    categories={categories}
+                    selectedCategory={selectedCategory}
+                    setSelectedCategory={setSelectedCategory} />
+            )}
 
             <ProductCard filteredProducts={filteredProducts} />
         </div>

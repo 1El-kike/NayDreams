@@ -22,14 +22,14 @@ export const MapSection = () => {
                                 {t("Store Information")}
                             </h3>
                             <div className="space-y-2 text-gray-600">
-                                <p><strong>{t("Address:")}</strong> Calle Principal 123, Ciudad, País</p>
-                                <p><strong>{t("Phone:")}</strong> +1 (555) 123-4567</p>
-                                <p><strong>{t("Hours:")}</strong> Mon-Fri 9AM-7PM, Sat 10AM-5PM</p>
-                                <p><strong>{t("Email:")}</strong> info@naydreams.com</p>
+                                <p><strong>{t("Address:")}</strong> 2830 jameson North #27 Lincoln NE zip code 68516</p>
+                                <p><strong>{t("Phone:")}</strong> +1 (402) 770-0227</p>
+                                <p><strong>{t("Hours:")}</strong> 24h Every day</p>
+                                <p><strong>{t("Email:")}</strong> sabrinamador2001@gmail.com</p>
                             </div>
                         </div>
 
-                        <div className="bg-pink-500 text-white p-6 rounded-2xl hover:bg-pink-600 transition-colors duration-300">
+                        <div className="bg-gradient-to-bl from-pink-500 to-pink-400 text-white p-6 rounded-2xl hover:bg-pink-600 transition-colors duration-300">
                             <h3 className="text-xl font-semibold mb-3">
                                 {t("Why Visit Us?")}
                             </h3>
@@ -48,7 +48,7 @@ export const MapSection = () => {
                         data-aos-delay="600"
                     >
                         <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.1!2d-73.9!3d40.7!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDAuNzAwMDAwLCAtNzMuOTAwMDAw!5e0!3m2!1sen!2sus!4v1234567890!5m2!1sen!2sus"
+                            src="https://maps.google.com/maps?q=2830+jameson+North+%2327+Lincoln+NE+68516&output=embed"
                             width="100%"
                             height="400"
                             style={{ border: 0, borderRadius: '1rem' }}

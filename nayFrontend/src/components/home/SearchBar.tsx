@@ -2,14 +2,17 @@ import { Input, Button } from "@heroui/react";
 import { SearchIcon } from "@heroui/shared-icons";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 export const SearchBar = () => {
     const { t } = useTranslation();
     const [searchTerm, setSearchTerm] = useState("");
+    const navigate = useNavigate();
 
     const handleSearch = () => {
-        // Implement search logic here
-        console.log("Searching for:", searchTerm);
+        if (searchTerm.trim()) {
+            navigate(`/products/watch?q=${encodeURIComponent(searchTerm.trim())}`);
+        }
     };
 
     return (
@@ -53,7 +56,7 @@ export const SearchBar = () => {
                 <div className="mt-8 text-center" data-aos="fade-up" data-aos-delay="600">
                     <p className="text-gray-500 mb-3">{t("Popular searches:")}</p>
                     <div className="flex flex-wrap justify-center gap-2">
-                        {["Mugs", "Pullovers", "Personalized", "Custom"].map((term, index) => (
+                        {["Cup", "Pullovers", "Personalized", "Photo Rock"].map((term, index) => (
                             <Button
                                 key={term}
                                 variant="light"

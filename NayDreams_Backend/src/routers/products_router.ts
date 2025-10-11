@@ -5,6 +5,7 @@ import {
   getProductById,
   updateProduct,
   deleteProduct,
+  searchProducts,
 } from "../controllers/products_controller.js";
 import upload, {
   uploadProductImages,
@@ -14,6 +15,7 @@ import { superAuthenticateToken } from "../middleware/SuperauthenticateToken.js"
 
 const router = express.Router();
 
+router.get("/search", searchProducts);
 router.get("/", getAllProducts);
 router.post(
   "/",
