@@ -1,15 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { useFormContext, Controller } from "react-hook-form";
-import { Image } from "@heroui/react";
+import { Image, Avatar, AvatarGroup } from "@heroui/react";
 import { useTranslation } from "react-i18next";
-import { PUBLIC_URL } from "../config/env";
+import { port, PUBLIC_URL } from "../config/env";
 import { ArrowUpCircleIcon } from "@heroicons/react/24/outline";
 
 interface Typeimage {
   data: string;
   label: string;
-  imagenDefault?: string | null;
+  imagenDefault?: string | string[] | null;
   required?: boolean;
   multiple?: boolean;
   onImagesChange?: (images: string[]) => void;
@@ -21,19 +21,31 @@ export const Images: React.FC<Typeimage> = ({ data, label, imagenDefault, requir
   const {
     control,
     watch,
-    formState: { errors, isSubmitSuccessful },
+    formState: { errors, isSubmitSuccessful, isSubmitting },
     setValue,
   } = useFormContext();
 
   useEffect(() => {
-    if (imagenDefault && !multiple) {
-      setImagePreviews([PUBLIC_URL + imagenDefault]);
-      setValue(data, imagenDefault);
+    if (!isSubmitting) {
+      if (imagenDefault) {
+        if (!multiple) {
+          setImagePreviews([PUBLIC_URL + imagenDefault]);
+          setValue(data, imagenDefault);
+        } else {
+          const img = Array.isArray(imagenDefault) ? imagenDefault as string[] : [imagenDefault]
+          const result = img.map((item) => {
+            return port + item
+          })
+          setImagePreviews(result);
+          setValue(data, [imagenDefault]);
+        }
+
+      }
     }
-  }, [imagenDefault]);
+  }, [imagenDefault, isSubmitting]);
 
   useEffect(() => {
-    if (isSubmitSuccessful && !imagenDefault) {
+    if (isSubmitSuccessful) {
       setImagePreviews([]);
       setValue(data, multiple ? [] : null);
     }
@@ -49,33 +61,38 @@ export const Images: React.FC<Typeimage> = ({ data, label, imagenDefault, requir
     return () => subscription.unsubscribe();
   }, [watch]);
 
-  const handleImage = (files: FileList | null) => {
+  const handleImage = async (files: FileList | null) => {
     if (files) {
       const fileArray = Array.from(files);
 
       // Limitar a 4 imágenes si es múltiple
       const limitedFiles = multiple && fileArray.length > 4 ? fileArray.slice(0, 4) : fileArray;
 
-      const newPreviews: string[] = [];
+      try {
+        const newPreviews = await Promise.all(
+          limitedFiles.map((file) => {
+            return new Promise<string>((resolve) => {
+              const reader = new FileReader();
+              reader.readAsDataURL(file);
+              reader.onloadend = () => {
+                resolve(reader.result as string);
+              };
+            });
+          })
+        );
 
-      limitedFiles.forEach((file, index) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onloadend = () => {
-          newPreviews[index] = reader.result as string;
-          if (newPreviews.length === limitedFiles.length) {
-            setImagePreviews(newPreviews);
-            const finalFiles = multiple ? new DataTransfer() : null;
-            if (multiple && finalFiles) {
-              limitedFiles.forEach(file => finalFiles.items.add(file));
-              setValue(data, finalFiles.files);
-            } else {
-              setValue(data, limitedFiles[0]);
-            }
-            onImagesChange?.(newPreviews);
-          }
-        };
-      });
+        setImagePreviews(newPreviews);
+        const finalFiles = multiple ? new DataTransfer() : null;
+        if (multiple && finalFiles) {
+          limitedFiles.forEach(file => finalFiles.items.add(file));
+          setValue(data, finalFiles.files);
+        } else {
+          setValue(data, limitedFiles[0]);
+        }
+        onImagesChange?.(newPreviews);
+      } catch (error) {
+        console.error('Error reading files:', error);
+      }
     } else {
       setImagePreviews([]);
       setValue(data, multiple ? [] : null);
@@ -94,7 +111,9 @@ export const Images: React.FC<Typeimage> = ({ data, label, imagenDefault, requir
       Array.from(currentFiles as FileList).forEach((file: File, i: number) => {
         if (i !== index) dt.items.add(file);
       });
-      setValue(data, multiple ? dt.files : dt.files[0] || null);
+      setValue(data, multiple ? (dt.files.length > 0 ? dt.files : []) : (dt.files[0] || null));
+    } else {
+      setValue(data, multiple ? [] : null);
     }
 
     onImagesChange?.(newPreviews);
@@ -102,19 +121,18 @@ export const Images: React.FC<Typeimage> = ({ data, label, imagenDefault, requir
 
   return (
     <>
-      <h1 className="text-2xl  mt-5 font-bold flex items-center gap-2">
+      <h1 className="text-2xl mb-2  mt-5 font-bold flex items-center gap-2">
         <p className="bg-gradient-to-tr from-rose-400 bg-clip-text text-transparent to-purple-600">{label}</p>
         <span className="h-8 w-8 pt-1 my-auto"><ArrowUpCircleIcon /></span>
       </h1>
-      <div className="shadow-xl shadow-slate-200 pb-5 border border-gray-300 rounded-2xl">
+      <div className="shadow-xl shadow-slate-200  pb-5 border border-gray-300 rounded-2xl">
         <div className="md:flex w-full my-2 px-3 gap-4">
-          <div className="grow my-4 basis-1/2">
+          <div className=" my-4 basis-1/2">
             <label
-              htmlFor="dropzone-file"
               className={`${errors[data]
                 ? "border-red-500 bg-red-50"
                 : "bg-gray-50 border-gray-300"
-                } flex relative flex-col items-center justify-center w-full h-64 border-2 border-dashed rounded-lg cursor-pointer hover:bg-gray-100`}
+                } flex h-full relative flex-col items-center justify-center w-full  border-2 border-dashed rounded-lg cursor-pointer hover:bg-gray-100`}
             >
               <div className="flex flex-col items-center justify-center pt-5 pb-6">
                 <svg
@@ -138,8 +156,8 @@ export const Images: React.FC<Typeimage> = ({ data, label, imagenDefault, requir
                   </span>{" "}
                   {t("or drag and drop")}
                 </p>
-                <p className="text-xs text-gray-500">
-                  {multiple ? t("PNG, JPG, GIF up to 2MB (max 5 images)") : t("PNG, JPG, GIF up to 2MB")}
+                <p className="text-xs text-center text-gray-500">
+                  {multiple ? t("PNG, JPG, GIF up to 3MB (max 4 images)") : t("PNG, JPG, GIF up to 2MB")}
                 </p>
               </div>
               <Controller
@@ -185,11 +203,10 @@ export const Images: React.FC<Typeimage> = ({ data, label, imagenDefault, requir
                 }}
                 render={({ field }) => (
                   <input
-                    id="dropzone-file"
                     type="file"
                     accept="image/*"
                     multiple={multiple}
-                    className="hidden"
+                    className="absolute inset-0 w-full h-full  opacity-0 cursor-pointer"
                     onChange={(e) => {
                       handleImage(e.target.files);
                       field.onChange(multiple ? e.target.files : e.target.files?.[0]);
@@ -210,7 +227,7 @@ export const Images: React.FC<Typeimage> = ({ data, label, imagenDefault, requir
                 <div className="space-y-4 ">
                   {/* Primera imagen - tamaño completo */}
                   <div className="relative group">
-                    <div className="aspect-square h-64  overflow-hidden bg-gray-100 rounded-xl">
+                    <div className="aspect-square lg:  overflow-hidden bg-gray-100 rounded-xl">
                       <Image
                         isBlurred
                         alt={`Vista previa 1`}
@@ -220,7 +237,7 @@ export const Images: React.FC<Typeimage> = ({ data, label, imagenDefault, requir
                     </div>
                     <button
                       type="button"
-                      className="absolute -top-2 -right-2 bg-red-500 hover:bg-red-600 text-white rounded-full p-1 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                      className="absolute -top-2 -right-2 bg-red-500 hover:bg-red-600 z-30 text-white rounded-full p-1 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200"
                       title={t("Remove image")}
                       onClick={() => removeImage(0)}
                     >
@@ -228,9 +245,7 @@ export const Images: React.FC<Typeimage> = ({ data, label, imagenDefault, requir
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                       </svg>
                     </button>
-                    <div className="absolute bottom-2 left-2 bg-black/50 text-white text-xs px-2 py-1 rounded">
-                      1
-                    </div>
+
                   </div>
                 </div>
               </>
@@ -248,35 +263,53 @@ export const Images: React.FC<Typeimage> = ({ data, label, imagenDefault, requir
         </div>
 
         {imagePreviews.length > 1 && (
-          <div className="space-y-4 p-6">
-            <div className="grid grid-cols-3 gap-2">
-              {imagePreviews.slice(1).map((preview, index) => (
-                <div key={index + 1} className="relative group">
-                  <div className="aspect-square overflow-hidden bg-gray-100 rounded-lg">
-                    <Image
-                      isBlurred
-                      alt={`Vista previa ${index + 2}`}
-                      className="w-full h-full object-cover aspect-square"
-                      src={preview}
-                    />
+          <>
+            {/* Desktop view - grid */}
+            <div className="hidden md:block space-y-4 p-6">
+              <div className="grid grid-cols-3 gap-2">
+                {imagePreviews.slice(1).map((preview, index) => (
+                  <div key={index + 1} className="relative group">
+                    <div className="aspect-square overflow-hidden bg-gray-100 rounded-lg">
+                      <Image
+                        isBlurred
+                        alt={`Vista previa ${index + 2}`}
+                        className="w-full h-full object-cover aspect-square"
+                        src={preview}
+                      />
+                    </div>
+                    <button
+                      type="button"
+                      className="absolute z-20 -top-1 -right-1 bg-red-500 hover:bg-red-600 text-white rounded-full p-0.5 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                      title={t("Remove image")}
+                      onClick={() => removeImage(index + 1)}
+                    >
+                      <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </button>
+                    <div className="absolute bottom-1 left-1 bg-black/50 text-white px-1.5 py-0.5 rounded text-xs">
+                      {index + 2}
+                    </div>
                   </div>
-                  <button
-                    type="button"
-                    className="absolute z-20 -top-1 -right-1 bg-red-500 hover:bg-red-600 text-white rounded-full p-0.5 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-                    title={t("Remove image")}
-                    onClick={() => removeImage(index + 1)}
-                  >
-                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </button>
-                  <div className="absolute bottom-1 left-1 bg-black/50 text-white px-1.5 py-0.5 rounded text-xs">
-                    {index + 2}
-                  </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
+
+            {/* Mobile view - AvatarGroup */}
+            <div className="block md:hidden p-6">
+              <AvatarGroup isBordered max={3} size="lg" className="justify-center">
+                {imagePreviews.slice(1).map((preview, index) => (
+                  <Avatar
+                    key={index + 1}
+                    src={preview}
+                    alt={`Vista previa ${index + 2}`}
+                    className="cursor-pointer"
+                    onClick={() => removeImage(index + 1)}
+                  />
+                ))}
+              </AvatarGroup>
+            </div>
+          </>
         )}
 
         <div className="text-end my-2 px-4">

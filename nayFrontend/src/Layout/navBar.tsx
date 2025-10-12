@@ -41,7 +41,7 @@ export const NavBar = () => {
             { name: t("Wrappers"), link: 'envoltura' },
             { name: t("Log Out"), link: "" },
         ];
-    console.log(currentUser)
+
 
     return (
         <Navbar className="bg-gradient-to-r from-pink-500 to-pink-400 text-white">

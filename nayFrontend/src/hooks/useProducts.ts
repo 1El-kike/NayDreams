@@ -10,6 +10,9 @@ export interface Product {
   stock: number;
   rating: number;
   image: string | null;
+  image2: string | null;
+  image3: string | null;
+  image4: string | null;
   categoryId: number;
   category: {
     id: number;

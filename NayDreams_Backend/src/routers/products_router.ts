@@ -25,7 +25,13 @@ router.post(
   errorHandle
 );
 router.get("/:id", getProductById);
-router.put("/:id", superAuthenticateToken, uploadProductImages, updateProduct);
+router.put(
+  "/:id",
+  superAuthenticateToken,
+  uploadProductImages,
+  updateProduct,
+  errorHandle
+);
 router.delete("/:id", deleteProduct);
 
 export default router;

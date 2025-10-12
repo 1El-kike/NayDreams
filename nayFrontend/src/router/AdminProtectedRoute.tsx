@@ -7,7 +7,7 @@ interface AdminProtectedRouteProps {
 
 export const AdminProtectedRoute: React.FC<AdminProtectedRouteProps> = ({ children }) => {
     const { currentUser } = useAuth();
-    console.log(currentUser)
+
 
     if (!currentUser || currentUser?.role !== "ADMIN") {
         return <Navigate to="/error/403" replace />;

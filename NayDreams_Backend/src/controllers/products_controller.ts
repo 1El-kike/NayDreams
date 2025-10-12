@@ -102,7 +102,8 @@ export const getProductById = async (
 
 export const updateProduct = async (
   req: Request,
-  res: Response
+  res: Response,
+  next: NextFunction
 ): Promise<void> => {
   try {
     const { id } = req.params;
@@ -129,6 +130,8 @@ export const updateProduct = async (
     if (files?.image5?.[0])
       updateData.image5 = `uploads/${files.image5[0].filename}`;
 
+    console.log(updateData, req.file, req.files);
+
     const product = await prisma.product.update({
       where: {
         id: parseInt(id),
@@ -143,7 +146,7 @@ export const updateProduct = async (
 
     res.status(200).json(product);
   } catch (error) {
-    res.status(500).json({ message: "Error updating product" });
+    next(res.status(500).json({ message: "Error updating product" }));
   }
 };
 

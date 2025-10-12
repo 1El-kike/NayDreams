@@ -1,37 +1,38 @@
-import { useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { port } from "../config/env";
 
 export const useUpdateProduct = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [message, setMessage] = useState("");
+  const queryClient = useQueryClient();
 
-  const updateProduct = async (id: number, formData: FormData) => {
-    setIsLoading(true);
-    setMessage("");
-
-    try {
+  const mutation = useMutation({
+    mutationFn: async ({
+      id,
+      formData,
+    }: {
+      id: number;
+      formData: FormData;
+    }) => {
       const response = await axios.put(`${port}products/${id}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
-      setMessage("Producto actualizado exitosamente");
-      console.log(response.data);
-      return true;
-    } catch (error: any) {
-      setMessage(
-        error.response?.data?.message || "Error al actualizar el producto"
-      );
-      return false;
-    } finally {
-      setIsLoading(false);
-    }
-  };
+      return response.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["products"] });
+    },
+  });
 
   return {
-    updateProduct,
-    isLoading,
-    message,
+    updateProduct: (id: number, formData: FormData) =>
+      mutation.mutateAsync({ id, formData }),
+    isLoading: mutation.isPending,
+    message:
+      mutation.error?.message ||
+      (mutation.isSuccess ? "Producto actualizado exitosamente" : ""),
+    isSuccess: mutation.isSuccess,
+    isError: mutation.isError,
   };
 };

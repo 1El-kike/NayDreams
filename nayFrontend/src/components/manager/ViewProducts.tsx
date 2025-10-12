@@ -1,29 +1,36 @@
-import { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useState, useEffect } from "react";
 import { Button, Card, CardBody, CardHeader, Image, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, addToast, Spinner } from "@heroui/react";
 import { useTranslation } from "react-i18next";
 import { useProducts } from "../../hooks/useProducts";
 import type { Product } from "../../hooks/useProducts";
 import { useDeleteProduct } from "../../hooks/useDeleteProduct";
-import { EyeIcon, PencilIcon, PlusCircleIcon, TrashIcon } from "@heroicons/react/24/outline";
+import { EyeIcon, PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
+import { EditProduct } from "./EditProduct";
+import { port } from "../../config/env";
 
 export const ViewProducts = () => {
     const { t } = useTranslation();
     const { data: products, isLoading, error } = useProducts();
-    const { deleteProduct, isLoading: deleteLoading, message: deleteMessage } = useDeleteProduct();
+    const { deleteProduct, isLoading: deleteLoading, isSuccess: deleteSuccess, isError: deleteError, message: deleteMessage } = useDeleteProduct();
     const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
     const [viewModal, setViewModal] = useState(false);
-    const [editModal, setEditModal] = useState(false);
     const [deleteModal, setDeleteModal] = useState(false);
+    const [editModal, setEditModal] = useState(false);
+
+
+
 
     const handleView = (product: Product) => {
         setSelectedProduct(product);
         setViewModal(true);
     };
 
+
     const handleEdit = (product: Product) => {
         setSelectedProduct(product);
         setEditModal(true);
-    };
+    }
 
     const handleDelete = (product: Product) => {
         setSelectedProduct(product);
@@ -32,15 +39,28 @@ export const ViewProducts = () => {
 
     const confirmDelete = async () => {
         if (!selectedProduct) return;
-        const success = await deleteProduct(selectedProduct.id);
-        if (success) {
+        try {
+            await deleteProduct(selectedProduct.id);
+        } catch (error) {
+            // Error is handled by the hook
+        }
+        setDeleteModal(false);
+        setSelectedProduct(null);
+    };
+
+    useEffect(() => {
+        if (deleteSuccess) {
             addToast({
                 title: t("Success!"),
                 description: t("Product deleted successfully"),
                 color: "success",
                 timeout: 5000,
             });
-        } else {
+        }
+    }, [deleteSuccess]);
+
+    useEffect(() => {
+        if (deleteError) {
             addToast({
                 title: t("Error"),
                 description: deleteMessage || t("Error deleting product"),
@@ -48,9 +68,8 @@ export const ViewProducts = () => {
                 timeout: 5000,
             });
         }
-        setDeleteModal(false);
-        setSelectedProduct(null);
-    };
+    }, [deleteError]);
+
 
     if (isLoading) return <div className="text-center py-8">{t("Loading...")}</div>;
     if (error) return <div className="text-center py-8 text-red-500">{t("Error loading products")}</div>;
@@ -63,9 +82,9 @@ export const ViewProducts = () => {
                     <Card key={product.id} className="shadow-lg">
                         <CardHeader className="pb-0">
                             <Image
-                                src={product.image || "/placeholder.jpg"}
+                                src={`${port}${product.image}` || "/placeholder.jpg"}
                                 alt={product.name}
-                                className="w-full h-48 object-cover rounded-t-lg"
+                                className="w-full  h-48 aspect-square object-cover rounded-t-lg"
                             />
                         </CardHeader>
                         <CardBody className="pt-4">
@@ -113,7 +132,7 @@ export const ViewProducts = () => {
                         {selectedProduct && (
                             <div className="space-y-4">
                                 <Image
-                                    src={selectedProduct.image || "/placeholder.jpg"}
+                                    src={`${port}${selectedProduct.image}` || "/placeholder.jpg"}
                                     alt={selectedProduct.name}
                                     className="w-full h-64 object-cover rounded-lg"
                                 />
@@ -131,19 +150,14 @@ export const ViewProducts = () => {
                 </ModalContent>
             </Modal>
 
-            {/* Edit Modal - Placeholder */}
-            <Modal isOpen={editModal} onOpenChange={setEditModal} size="2xl">
-                <ModalContent>
-                    <ModalHeader>{t("Edit Product")}</ModalHeader>
-                    <ModalBody>
-                        <p>{t("Edit form coming soon...")}</p>
-                        {/* TODO: Add edit form */}
-                    </ModalBody>
-                    <ModalFooter>
-                        <Button onPress={() => setEditModal(false)}>{t("Close")}</Button>
-                    </ModalFooter>
-                </ModalContent>
-            </Modal>
+            {/* Edit Modal */}
+            {editModal && (
+                <EditProduct
+                    selectedProduct={selectedProduct}
+                    setSelectedProduct={setSelectedProduct}
+                    handleEdit={() => setEditModal(false)}
+                />
+            )}
 
             {/* Delete Modal */}
             <Modal isOpen={deleteModal} onOpenChange={setDeleteModal}>

@@ -1,7 +1,7 @@
 import { useForm, Controller, FormProvider } from "react-hook-form";
 import { Input, Button, Textarea, Select, SelectItem, addToast } from "@heroui/react";
 import { useTranslation } from "react-i18next";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useCategories } from "../../hooks/useCategories";
 import { useUpdateCategory } from "../../hooks/useUpdateCategory";
 
@@ -17,7 +17,7 @@ export const EditCategoryForm = () => {
     const { handleSubmit, formState: { errors }, reset, setValue } = methods;
     const [selectedCategory, setSelectedCategory] = useState<CategoryForm | null>(null);
     const { data: categories, isLoading: categoriesLoading } = useCategories();
-    const { updateCategory, isLoading, message } = useUpdateCategory();
+    const { updateCategory, isLoading, isSuccess, isError, message } = useUpdateCategory();
 
     const handleCategorySelect = (id: number) => {
         const cat: any = categories?.find(c => c.id === id);
@@ -30,8 +30,15 @@ export const EditCategoryForm = () => {
     };
 
     const onSubmit = async (data: CategoryForm) => {
-        const success = await updateCategory(data.id, { name: data.name, description: data.description });
-        if (success) {
+        try {
+            await updateCategory(data.id, { name: data.name, description: data.description });
+        } catch (error) {
+            // Error is handled by the hook
+        }
+    };
+
+    useEffect(() => {
+        if (isSuccess) {
             addToast({
                 title: t("Success!"),
                 description: t("Category updated successfully"),
@@ -40,7 +47,11 @@ export const EditCategoryForm = () => {
             });
             reset();
             setSelectedCategory(null);
-        } else {
+        }
+    }, [isSuccess]);
+
+    useEffect(() => {
+        if (isError) {
             addToast({
                 title: t("Error"),
                 description: message || t("Error updating category"),
@@ -48,7 +59,7 @@ export const EditCategoryForm = () => {
                 timeout: 5000,
             });
         }
-    };
+    }, [isError]);
 
     return (
         <FormProvider {...methods}>

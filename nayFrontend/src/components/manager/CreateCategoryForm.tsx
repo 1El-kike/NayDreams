@@ -1,6 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useForm, Controller, FormProvider } from "react-hook-form";
 import { Input, Button, Textarea, addToast } from "@heroui/react";
 import { useTranslation } from "react-i18next";
+import { useEffect } from "react";
 import { useCreateCategory } from "../../hooks/useCreateCategory";
 
 interface CategoryForm {
@@ -12,11 +14,18 @@ export const CreateCategoryForm = () => {
     const { t } = useTranslation();
     const methods = useForm<CategoryForm>();
     const { handleSubmit, formState: { errors }, reset } = methods;
-    const { createCategory, isLoading, message } = useCreateCategory();
+    const { createCategory, isLoading, isSuccess, isError, message } = useCreateCategory();
 
     const onSubmit = async (data: CategoryForm) => {
-        const success = await createCategory(data);
-        if (success) {
+        try {
+            await createCategory(data);
+        } catch (error) {
+            // Error is handled by the hook
+        }
+    };
+
+    useEffect(() => {
+        if (isSuccess) {
             addToast({
                 title: t("Success!"),
                 description: t("Category created successfully"),
@@ -24,7 +33,11 @@ export const CreateCategoryForm = () => {
                 timeout: 5000,
             });
             reset();
-        } else {
+        }
+    }, [isSuccess]);
+
+    useEffect(() => {
+        if (isError) {
             addToast({
                 title: t("Error"),
                 description: message || t("Error creating category"),
@@ -32,7 +45,7 @@ export const CreateCategoryForm = () => {
                 timeout: 5000,
             });
         }
-    };
+    }, [isError]);
 
     return (
         <FormProvider {...methods}>

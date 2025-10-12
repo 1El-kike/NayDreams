@@ -1,36 +1,27 @@
-import { useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { port } from "../config/env";
 
 export const useCreateCategory = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [message, setMessage] = useState("");
+  const queryClient = useQueryClient();
 
-  const createCategory = async (data: {
-    name: string;
-    description: string;
-  }) => {
-    setIsLoading(true);
-    setMessage("");
-
-    try {
+  const mutation = useMutation({
+    mutationFn: async (data: { name: string; description: string }) => {
       const response = await axios.post(`${port}categories`, data);
-      setMessage("Categoría creada exitosamente");
-      console.log(response.data);
-      return true;
-    } catch (error: any) {
-      setMessage(
-        error.response?.data?.message || "Error al crear la categoría"
-      );
-      return false;
-    } finally {
-      setIsLoading(false);
-    }
-  };
+      return response.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["categories"] });
+    },
+  });
 
   return {
-    createCategory,
-    isLoading,
-    message,
+    createCategory: mutation.mutateAsync,
+    isLoading: mutation.isPending,
+    message:
+      mutation.error?.message ||
+      (mutation.isSuccess ? "Categoría creada exitosamente" : ""),
+    isSuccess: mutation.isSuccess,
+    isError: mutation.isError,
   };
 };

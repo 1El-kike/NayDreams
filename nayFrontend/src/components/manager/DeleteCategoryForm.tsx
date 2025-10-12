@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Button, Select, SelectItem, addToast, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from "@heroui/react";
 import { useTranslation } from "react-i18next";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useCategories } from "../../hooks/useCategories";
 import { useDeleteCategory } from "../../hooks/useDeleteCategory";
 
@@ -9,7 +10,7 @@ export const DeleteCategoryForm = () => {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
     const [selectedCategory, setSelectedCategory] = useState<{ id: number; name: string } | null>(null);
     const { data: categories, isLoading } = useCategories();
-    const { deleteCategory, isLoading: deleteLoading, message } = useDeleteCategory();
+    const { deleteCategory, isLoading: deleteLoading, isSuccess, isError, message } = useDeleteCategory();
 
     const handleCategorySelect = (id: number) => {
         const cat = categories?.find(c => c.id === id);
@@ -21,15 +22,28 @@ export const DeleteCategoryForm = () => {
 
     const confirmDelete = async () => {
         if (!selectedCategory) return;
-        const success = await deleteCategory(selectedCategory.id);
-        if (success) {
+        try {
+            await deleteCategory(selectedCategory.id);
+        } catch (error) {
+            // Error is handled by the hook
+        }
+        onOpenChange();
+        setSelectedCategory(null);
+    };
+
+    useEffect(() => {
+        if (isSuccess) {
             addToast({
                 title: t("Success!"),
                 description: t("Category deleted successfully"),
                 color: "success",
                 timeout: 5000,
             });
-        } else {
+        }
+    }, [isSuccess]);
+
+    useEffect(() => {
+        if (isError) {
             addToast({
                 title: t("Error"),
                 description: message || t("Error deleting category"),
@@ -37,9 +51,7 @@ export const DeleteCategoryForm = () => {
                 timeout: 5000,
             });
         }
-        onOpenChange();
-        setSelectedCategory(null);
-    };
+    }, [isError]);
 
     return (
         <div className="w-full max-w-2xl mx-auto">

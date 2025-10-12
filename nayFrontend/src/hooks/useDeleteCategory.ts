@@ -1,33 +1,27 @@
-import { useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { port } from "../config/env";
 
 export const useDeleteCategory = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [message, setMessage] = useState("");
+  const queryClient = useQueryClient();
 
-  const deleteCategory = async (id: number) => {
-    setIsLoading(true);
-    setMessage("");
-
-    try {
+  const mutation = useMutation({
+    mutationFn: async (id: number) => {
       const response = await axios.delete(`${port}categories/${id}`);
-      setMessage("Categoría eliminada exitosamente");
-      console.log(response.data);
-      return true;
-    } catch (error: any) {
-      setMessage(
-        error.response?.data?.message || "Error al eliminar la categoría"
-      );
-      return false;
-    } finally {
-      setIsLoading(false);
-    }
-  };
+      return response.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["categories"] });
+    },
+  });
 
   return {
-    deleteCategory,
-    isLoading,
-    message,
+    deleteCategory: mutation.mutateAsync,
+    isLoading: mutation.isPending,
+    message:
+      mutation.error?.message ||
+      (mutation.isSuccess ? "Categoría eliminada exitosamente" : ""),
+    isSuccess: mutation.isSuccess,
+    isError: mutation.isError,
   };
 };

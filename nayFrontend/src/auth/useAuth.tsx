@@ -42,7 +42,6 @@ const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
     const [auth, setAuth] = useState<AuthModel | undefined>(authHelper.getAuth());
     const [currentUser, setCurrentUser] = useState<UserModel | undefined>();
     const saveAuth = (auth: AuthModel | undefined) => {
-        console.log("metido", auth)
         setAuth(auth);
         if (auth) {
             authHelper.setAuth(auth);
