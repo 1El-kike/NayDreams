@@ -2,10 +2,10 @@ import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { HeroSection } from "../components/envolturas/HeroSection";
 import { Section1 } from "../components/envolturas/section1";
 import { Section2 } from "../components/envolturas/section2";
 import { VideoGallery } from "../components/envolturas/videoGallery";
+import { HeroSection } from "../widget/heroSection";
 
 export interface TypeVideo {
     id: number;
@@ -65,7 +65,10 @@ export const EnvolturaPage = () => {
     return (
         <div className="min-h-screen bg-gradient-to-br from-pink-50 to-rose-50">
             {/* Hero Section */}
-            <HeroSection />
+            <HeroSection
+                title="Nuestro Proceso de Empaquetado"
+                subTitle="Descubre cómo cuidamos cada detalle en la preparación de tus productos personalizados"
+            />
 
             {/* Section 1: Text Left, Video Right */}
             <Section1 videos={videoSection[0]} />

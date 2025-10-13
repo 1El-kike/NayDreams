@@ -15,6 +15,14 @@ interface TypeProduct {
 export const ProductCard: FC<TypeProduct> = ({ filteredProducts }) => {
     const { t } = useTranslation();
     const navigate = useNavigate();
+
+    const handleSend = (product: Product) => {
+
+        const whatsappMessage = `Nombre Product: ${product.name}\nPrice: ${product.price}`;
+        const whatsappUrl = `https://wa.me/14027700227?text=${encodeURIComponent(whatsappMessage)}`;
+        window.open(whatsappUrl, '_blank');
+    };
+
     return (
         <>
             <motion.div
@@ -68,6 +76,7 @@ export const ProductCard: FC<TypeProduct> = ({ filteredProducts }) => {
                                     <Button
                                         color="primary"
                                         variant="solid"
+                                        onPress={() => handleSend(product)}
                                         className="flex-1 bg-gradient-to-r from-pink-500 to-pink-400 hover:from-pink-600 hover:to-pink-700 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300"
                                     >
                                         {t("To Order")}

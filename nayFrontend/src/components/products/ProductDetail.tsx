@@ -7,6 +7,7 @@ import { useReviews, useCreateReview } from "../../hooks/useReviews";
 import { useAuth } from "../../auth/useAuth";
 import { port } from "../../config/env";
 import { useTranslation } from "react-i18next";
+import type { Product } from "../../hooks/useProducts";
 
 // Función para obtener todas las imágenes disponibles del producto
 const getProductImages = (product: any) => {
@@ -93,6 +94,13 @@ export const ProductDetail = () => {
             </div>
         );
     }
+
+    const handleSend = (product: Product) => {
+
+        const whatsappMessage = `Nombre Product: ${product.name}\nPrice: ${product.price}`;
+        const whatsappUrl = `https://wa.me/14027700227?text=${encodeURIComponent(whatsappMessage)}`;
+        window.open(whatsappUrl, '_blank');
+    };
 
     const averageRating = reviews.length > 0 ? reviews.reduce((acc: number, review: any) => acc + review.rating, 0) / reviews.length : product.rating;
 
@@ -203,18 +211,19 @@ export const ProductDetail = () => {
                                         color="primary"
                                         variant="solid"
                                         size="lg"
+                                        onPress={() => handleSend(product)}
                                         className="flex-1 bg-gradient-to-r from-pink-500 to-pink-400 hover:from-pink-600 hover:to-pink-700 text-white font-semibold py-3 rounded-xl transition-all duration-300"
                                     >
-                                        {t("Add to Cart")}
+                                        {t("To Order")}
                                     </Button>
-                                    <Button
+                                    {/* <Button
                                         color="secondary"
                                         variant="bordered"
                                         size="lg"
                                         className="flex-1 border-pink-500 text-pink-500 hover:bg-pink-50 font-semibold py-3 rounded-xl transition-all duration-300"
                                     >
                                         {t("Buy Now")}
-                                    </Button>
+                                    </Button> */}
                                 </div>
                             </CardBody>
                         </Card>
@@ -286,7 +295,7 @@ export const ProductDetail = () => {
                                                         </div>
                                                         <div>
                                                             <p className="font-semibold text-gray-800">{t("Address")}:</p>
-                                                            <p className="text-gray-600">Lincoln, Nebraska</p>
+                                                            <p className="text-gray-600">2830 Jameson North apto 27 Lincoln NE</p>
                                                         </div>
                                                     </div>
                                                     <div className="flex items-center space-x-3">
@@ -295,7 +304,7 @@ export const ProductDetail = () => {
                                                         </div>
                                                         <div>
                                                             <p className="font-semibold text-gray-800">{t("Phone")}:</p>
-                                                            <p className="text-gray-600">(402) 555-0123</p>
+                                                            <p className="text-gray-600">+1 (402) 770-0227</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -315,7 +324,7 @@ export const ProductDetail = () => {
                                                         </div>
                                                         <div>
                                                             <p className="font-semibold text-gray-800">{t("Email")}:</p>
-                                                            <p className="text-gray-600">info@naysdreams.com</p>
+                                                            <p className="text-gray-600">sabrinamador2001@gmail.com</p>
                                                         </div>
                                                     </div>
                                                 </div>

@@ -24,7 +24,7 @@ export const MapSection = () => {
                             <div className="space-y-2 text-gray-600">
                                 <p><strong>{t("Address:")}</strong> 2830 jameson North #27 Lincoln NE zip code 68516</p>
                                 <p><strong>{t("Phone:")}</strong> +1 (402) 770-0227</p>
-                                <p><strong>{t("Hours:")}</strong> 24h Every day</p>
+                                <p><strong>{t("Hours:")}</strong> Open 24 hours</p>
                                 <p><strong>{t("Email:")}</strong> sabrinamador2001@gmail.com</p>
                             </div>
                         </div>

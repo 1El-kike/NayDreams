@@ -34,11 +34,11 @@ export const NavBar = () => {
             { name: t("Log Out"), link: "" },
         ]
         : [
-            { name: t("Home"), link: "init" },
-            { name: t("Products"), link: 'products' },
-            { name: t("About"), link: 'info' },
-            { name: t("Contact"), link: "contact" },
-            { name: t("Wrappers"), link: 'envoltura' },
+            { name: t("Home"), link: "/init" },
+            { name: t("Products"), link: '/products' },
+            { name: t("About"), link: '/info' },
+            { name: t("Contact"), link: "/contact" },
+            { name: t("Wrappers"), link: '/envoltura' },
             { name: t("Log Out"), link: "" },
         ];
 
@@ -146,7 +146,7 @@ export const NavBar = () => {
             }
 
             <NavbarMenu
-                className="bg-gradient-to-br from-pink-600 via-rose-500 to-pink-400 shadow-2xl backdrop-blur-md"
+                className="bg-gradient-to-br from-pink-500/80 via-pink-400/60 to-pink-300 shadow-2xl backdrop-blur-md"
                 motionProps={{
                     initial: { opacity: 0, x: -50 },
                     animate: { opacity: 1, x: 0 },

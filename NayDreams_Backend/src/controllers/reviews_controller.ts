@@ -9,7 +9,7 @@ export const createReview = async (
   try {
     const { productId, rating, comment } = req.body;
     const userId = (req as any).user?.id; // Obtener userId del middleware de autenticación
-
+    console.log(userId);
     if (!userId) {
       res.status(401).json({ message: "Authentication required" });
       return;

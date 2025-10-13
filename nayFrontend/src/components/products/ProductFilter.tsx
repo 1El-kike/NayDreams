@@ -2,17 +2,11 @@ import { Select, SelectItem } from "@heroui/react";
 import { motion } from "framer-motion";
 import type { FC } from "react";
 import { useTranslation } from "react-i18next";
-
-type TypeCategory = {
-    id: number;
-    name: string;
-
-}
-
+import type { Category } from "../../hooks/useCategories";
 interface TypeProps {
     selectedCategory: any;
     setSelectedCategory: (item: number) => void;
-    categories: TypeCategory[]
+    categories: Category[]
 }
 
 export const ProductFilter: FC<TypeProps> = ({ selectedCategory, setSelectedCategory, categories }) => {

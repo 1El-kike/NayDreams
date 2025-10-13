@@ -25,9 +25,9 @@ export const Footer = () => {
                         <h3 className="text-lg font-semibold mb-4">{t("Quick Links")}</h3>
                         <ul className="space-y-2">
                             <li><a href="/" className="text-gray-300 hover:text-white transition-colors">{t("Home Link")}</a></li>
-                            <li><a href="/productos" className="text-gray-300 hover:text-white transition-colors">{t("Products Link")}</a></li>
-                            <li><a href="/sobre-nosotros" className="text-gray-300 hover:text-white transition-colors">{t("About Us")}</a></li>
-                            <li><a href="/contacto" className="text-gray-300 hover:text-white transition-colors">{t("Contact Link")}</a></li>
+                            <li><a href="/products/watch" className="text-gray-300 hover:text-white transition-colors">{t("Products Link")}</a></li>
+                            <li><a href="/info" className="text-gray-300 hover:text-white transition-colors">{t("About Us")}</a></li>
+                            <li><a href="/contact" className="text-gray-300 hover:text-white transition-colors">{t("Contact Link")}</a></li>
                         </ul>
                     </div>
 

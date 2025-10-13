@@ -3,10 +3,10 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-import { HeroSection } from "../components/contacts/heroSection";
 import { Section1 } from "../components/contacts/section1";
 import { Section2 } from "../components/contacts/section2";
 import { FullMap } from "../components/contacts/fullMap";
+import { HeroSection } from "../widget/heroSection";
 
 // Fix for default markers in react-leaflet
 delete (L.Icon.Default.prototype as any)._getIconUrl;
@@ -28,7 +28,9 @@ export const ContactPage = () => {
     return (
         <div className="min-h-screen bg-gradient-to-br from-pink-50 to-rose-50">
             {/* Hero Section */}
-            <HeroSection />
+            <HeroSection
+                title="Contáctanos"
+                subTitle="Estamos aquí para ayudarte. Ponte en contacto con nosotros de cualquier forma que prefieras." />
             {/* Section 1: Contact Info Left, Map Right */}
             <Section1 />
             {/* Section 2: Hours Right, Form Left */}
