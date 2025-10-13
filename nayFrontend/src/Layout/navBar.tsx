@@ -1,8 +1,8 @@
 import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Button, NavbarMenuToggle, NavbarMenu, NavbarMenuItem, Dropdown, DropdownTrigger, Avatar, DropdownMenu, DropdownItem } from "@heroui/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "../auth/useAuth";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export const AcmeLogo = () => {
     return (
@@ -19,9 +19,14 @@ export const AcmeLogo = () => {
 
 export const NavBar = () => {
 
-    const [isMenuOpen] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
     const { currentUser, logout } = useAuth();
     const { t, i18n } = useTranslation();
+    const location = useLocation();
+
+    useEffect(() => {
+        setIsMenuOpen(false);
+    }, [location.pathname]);
 
     const menuItems = currentUser?.role === "ADMIN" ?
         [
@@ -44,7 +49,7 @@ export const NavBar = () => {
 
 
     return (
-        <Navbar className="bg-gradient-to-r from-pink-500 to-pink-400 text-white">
+        <Navbar className="bg-gradient-to-r from-pink-500 to-pink-400 text-white" isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
             <NavbarContent className="sm:hidden " justify="start">
                 <NavbarMenuToggle aria-label={isMenuOpen ? "Close menu" : "Open menu"} />
             </NavbarContent>
@@ -92,14 +97,17 @@ export const NavBar = () => {
                     <Dropdown>
                         <DropdownTrigger>
                             <Button variant="light" className="text-white ">
+                                <span className={`fi ${i18n.language === 'es' ? 'fi-es' : 'fi-us'} mr-2`}></span>
                                 <span>{i18n.language === 'es' ? 'ES' : 'EN'}</span> {t("Language")}
                             </Button>
                         </DropdownTrigger>
                         <DropdownMenu aria-label="Language selection">
-                            <DropdownItem className="flex items-center justify-center" key="es" onPress={() => i18n.changeLanguage('es')}>
+                            <DropdownItem className="flex items-center" key="es" onPress={() => i18n.changeLanguage('es')}>
+                                <span className="fi fi-es mr-3"></span>
                                 ES Español
                             </DropdownItem>
-                            <DropdownItem key="en" className="flex items-center justify-center" onPress={() => i18n.changeLanguage('en')}>
+                            <DropdownItem className="flex items-center" key="en" onPress={() => i18n.changeLanguage('en')}>
+                                <span className="fi fi-us mr-3"></span>
                                 EN English
                             </DropdownItem>
                         </DropdownMenu>

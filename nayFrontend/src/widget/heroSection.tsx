@@ -10,7 +10,7 @@ export const HeroSection: FC<TypeTitle> = ({ title, subTitle }) => {
     const { t } = useTranslation();
 
     return (
-        <section className="relative py-12 md:py-20 px-4 overflow-hidden bg-gradient-to-br from-pink-600 via-pink-500 to-pink-400 text-white min-h-[60vh] md:min-h-[40vh]">
+        <section className="relative py-12 md:py-20 px-4 overflow-hidden bg-gradient-to-br from-pink-600 via-pink-500 to-pink-400 text-white min-h-[30vh] md:min-h-[40vh]">
             {/* Elementos decorativos animados */}
             <div className="absolute inset-0">
                 {/* Curvas elegantes en lugar de rayas */}

@@ -1,12 +1,10 @@
-import { Progress } from "@heroui/react";
-import { lazy, type FC, Suspense } from "react";
+import { lazy } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 import { Layout } from "../Layout/layout";
 import { AdminProtectedRoute } from "./AdminProtectedRoute";
+import { SuspensedView } from "../widget/suspensedView";
 
-interface WithChildren {
-    children: React.ReactNode;
-}
+
 
 export const PrivateRoutes = () => {
     const InitPage = lazy(() =>
@@ -40,23 +38,7 @@ export const PrivateRoutes = () => {
         }))
     );
 
-    const SuspensedView: FC<WithChildren> = ({ children }) => {
-        return (
-            <Suspense
-                fallback={
-                    <div className="w-full h-screen p-20 flex justify-center items-center" >
-                        <Progress
-                            isIndeterminate // Propiedad para mostrar una barra de progreso indefinida
-                            color="primary" // Define el color de la barra (usa colores predefinidos de NextUI)
-                            size="lg" // Tamaño de la barra (pequeño, mediano o grande)
-                        />
-                    </div>
-                }
-            >
-                {children}
-            </Suspense>
-        );
-    };
+
 
     return (
         <Routes>
