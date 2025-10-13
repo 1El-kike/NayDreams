@@ -117,7 +117,15 @@ export const EditProduct: FC<EditProp> = ({ setSelectedProduct, selectedProduct,
             });
             setEditModal(false);
             setSelectedProduct(null);
-            reset();
+            // No reset completo, solo reset de campos básicos
+            reset({
+                name: '',
+                description: '',
+                price: 0,
+                stock: 0,
+                categoryId: 0,
+                images: [],
+            });
             handleEdit();
         }
     }, [isSuccess, handleEdit, setSelectedProduct, reset, t]);

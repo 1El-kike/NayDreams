@@ -48,10 +48,13 @@ export const Images: React.FC<Typeimage> = ({ data, label, imagenDefault, requir
 
   useEffect(() => {
     if (isSubmitSuccessful) {
-      setImagePreviews([]);
-      setValue(data, multiple ? [] : null);
+      // Solo limpiar si no hay imagenDefault
+      if (!imagenDefault) {
+        setImagePreviews([]);
+        setValue(data, multiple ? [] : null);
+      }
     }
-  }, [isSubmitSuccessful]);
+  }, [isSubmitSuccessful, imagenDefault]);
 
   useEffect(() => {
     const subscription = watch((value) => {
