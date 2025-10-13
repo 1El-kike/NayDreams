@@ -25,12 +25,12 @@ export const NavBar = () => {
 
     const menuItems = currentUser?.role === "ADMIN" ?
         [
-            { name: t("Home"), link: "init" },
-            { name: t("Products"), link: 'products' },
-            { name: t("Management"), link: 'products/management' },
-            { name: t("About"), link: 'info' },
-            { name: t("Contact"), link: "contact" },
-            { name: t("Wrappers"), link: 'envoltura' },
+            { name: t("Home"), link: "/init" },
+            { name: t("Products"), link: '/products' },
+            { name: t("Management"), link: '/products/management' },
+            { name: t("About"), link: '/info' },
+            { name: t("Contact"), link: "/contact" },
+            { name: t("Wrappers"), link: '/envoltura' },
             { name: t("Log Out"), link: "" },
         ]
         : [
