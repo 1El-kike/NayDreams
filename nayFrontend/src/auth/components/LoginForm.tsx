@@ -6,6 +6,7 @@ import { useAuth } from "../useAuth";
 import { useNavigate } from "react-router-dom";
 import { FormInput } from "./FormInput";
 import Cookies from "js-cookie";
+import { useTranslation } from "react-i18next";
 
 interface LoginFormData {
     email: string;
@@ -17,6 +18,7 @@ export const LoginForm = () => {
     const { saveAuth } = useAuth();
     const navigate = useNavigate();
     const form = useForm<LoginFormData>();
+    const { t } = useTranslation();
 
     const onSubmit = async (data: LoginFormData) => {
         setIsLoading(true);
@@ -41,33 +43,33 @@ export const LoginForm = () => {
     return (
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4">
             <FormInput
-                label="Email"
+                label={t("Email")}
                 name="email"
                 type="email"
-                placeholder="Enter your email"
+                placeholder={t("Enter your email")}
                 register={form.register}
                 errors={form.formState.errors}
-                validation={{ required: "Email is required" }}
+                validation={{ required: t("Email is required") }}
             />
 
             <FormInput
-                label="Password"
+                label={t("Password")}
                 name="password"
                 type="password"
-                placeholder="Enter your password"
+                placeholder={t("Enter your password")}
                 register={form.register}
                 errors={form.formState.errors}
-                validation={{ required: "Password is required" }}
+                validation={{ required: t("Password is required") }}
             />
 
             <div className="flex justify-between items-center">
                 <Link href="#" size="sm" className="text-blue-600">
-                    Forgot password?
+                    {t("Forgot password?")}
                 </Link>
             </div>
 
             <Button type="submit" color="danger" className="w-full" isLoading={isLoading}>
-                {isLoading ? <Spinner size="sm" /> : "Sign In"}
+                {isLoading ? <Spinner size="sm" /> : t("Sign In")}
             </Button>
 
             {form.formState.errors.root && (

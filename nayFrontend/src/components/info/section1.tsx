@@ -9,23 +9,23 @@ export const Section1 = ({ fondo }: { fondo: string }) => {
             <div className="grid md:grid-cols-2 gap-12 items-center">
                 <div data-aos="fade-right">
                     <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
-                        {t("Nuestra Misión")}
+                        {t("Our Mission")}
                     </h2>
                     <p className="text-lg text-gray-600 leading-relaxed mb-6">
-                        {t("En Nay Dreams, creemos que cada producto debe contar una historia única. Nos especializamos en crear artículos personalizados de alta calidad que reflejan tu personalidad y estilo. Desde tazas personalizadas hasta prendas de vestir, transformamos tus ideas en realidad.")}
+                        {t("At Nay's Dreams, we believe that every product should tell a unique story. We specialize in creating high-quality personalized items that reflect your personality and style. From custom mugs to clothing, we turn your ideas into reality.")}
                     </p>
                     <ul className="space-y-3 text-gray-600">
                         <li className="flex items-center">
                             <span className="w-2 h-2 bg-pink-500 rounded-full mr-3"></span>
-                            {t("Diseños únicos y personalizados")}
+                            {t("Unique and personalized designs")}
                         </li>
                         <li className="flex items-center">
                             <span className="w-2 h-2 bg-pink-500 rounded-full mr-3"></span>
-                            {t("Materiales premium de calidad")}
+                            {t("Premium quality materials")}
                         </li>
                         <li className="flex items-center">
                             <span className="w-2 h-2 bg-pink-500 rounded-full mr-3"></span>
-                            {t("Entrega rápida y confiable")}
+                            {t("Fast and reliable delivery")}
                         </li>
                     </ul>
                 </div>

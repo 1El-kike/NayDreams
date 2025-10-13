@@ -10,9 +10,10 @@ import { Section2 } from "../components/info/section2";
 import { Section3 } from "../components/info/section3";
 import { FinalCard } from "../components/info/finalCard";
 import { HeroSection } from "../widget/heroSection";
+import { useTranslation } from "react-i18next";
 
 export const InfoPage = () => {
-
+    const { t } = useTranslation();
 
     useEffect(() => {
         AOS.init({ duration: 1000 });
@@ -22,8 +23,8 @@ export const InfoPage = () => {
         <div className="min-h-screen bg-gradient-to-br from-pink-50 to-rose-50">
             {/* Hero Section */}
             <HeroSection
-                title="Sobre Nay's Dreams"
-                subTitle="Descubre cómo hacemos realidad tus sueños personalizados" />
+                title={t("About Nay's Dreams")}
+                subTitle={t("Discover how we make your personalized dreams come true")} />
             {/* Section 1: Text Left, Image Right */}
             <Section1 fondo={fondo} />
             {/* Section 2: Image Left, Text Right */}

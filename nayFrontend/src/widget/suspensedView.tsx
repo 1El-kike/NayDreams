@@ -1,12 +1,15 @@
 import { Suspense, type FC } from "react";
 import { motion } from "framer-motion";
 import { Progress } from "@heroui/react";
+import { useTranslation } from "react-i18next";
 
 interface WithChildren {
     children: React.ReactNode;
 }
 
 export const SuspensedView: FC<WithChildren> = ({ children }) => {
+    const { t } = useTranslation();
+
     return (
         <Suspense
             fallback={
@@ -97,7 +100,7 @@ export const SuspensedView: FC<WithChildren> = ({ children }) => {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: 0.2 }}
                         >
-                            Cargando...
+                            {t("Loading...")}
                         </motion.h2>
 
                         {/* Descripción */}
@@ -107,7 +110,7 @@ export const SuspensedView: FC<WithChildren> = ({ children }) => {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: 0.4 }}
                         >
-                            Estamos preparando todo para ti. Solo un momento...
+                            {t("Estamos preparando todo para ti. Solo un momento...")}
                         </motion.p>
 
                         {/* Barra de progreso */}

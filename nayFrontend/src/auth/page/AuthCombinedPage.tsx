@@ -146,10 +146,10 @@ export const AuthCombinedPage = () => {
                                                 </svg>
                                             </motion.div>
                                             <h2 className="text-2xl font-bold bg-gradient-to-r from-pink-600 to-rose-600 bg-clip-text text-transparent">
-                                                Nay Dreams
+                                                Nay's Dreams
                                             </h2>
                                             <p className="text-gray-600 text-sm max-w-xs mx-auto">
-                                                Donde la creatividad se encuentra con la personalización
+                                                {t("Donde la creatividad se encuentra con la personalización")}
                                             </p>
                                         </div>
                                     </div>
@@ -180,11 +180,10 @@ export const AuthCombinedPage = () => {
                                 transition={{ duration: 0.8, delay: 0.6 }}
                             >
                                 <h3 className="text-xl font-semibold text-gray-800">
-                                    Únete a nuestra comunidad
+                                    {t("Únete a nuestra comunidad")}
                                 </h3>
                                 <p className="text-gray-600 leading-relaxed">
-                                    Descubre productos únicos y personalizados que reflejan tu estilo único.
-                                    Crea tu cuenta y comienza tu viaje creativo con nosotros.
+                                    {t("Descubre productos únicos y personalizados que reflejan tu estilo único. Crea tu cuenta y comienza tu viaje creativo con nosotros.")}
                                 </p>
                             </motion.div>
                         </motion.div>
@@ -246,7 +245,7 @@ export const AuthCombinedPage = () => {
                                                         {isLogin ? t("Welcome Back") : t("Create Account")}
                                                     </h2>
                                                     <p className="text-gray-600">
-                                                        {isLogin ? "Ingresa tus credenciales para continuar" : "Regístrate para comenzar tu experiencia"}
+                                                        {isLogin ? t("Ingresa tus credenciales para continuar") : t("Regístrate para comenzar tu experiencia")}
                                                     </p>
                                                 </div>
 
@@ -258,12 +257,12 @@ export const AuthCombinedPage = () => {
 
                                                 <div className="mt-6 text-center">
                                                     <p className="text-sm text-gray-600">
-                                                        {isLogin ? "¿No tienes cuenta?" : "¿Ya tienes cuenta?"}{" "}
+                                                        {isLogin ? t("¿No tienes cuenta?") : t("¿Ya tienes cuenta?")}{" "}
                                                         <button
                                                             onClick={() => setIsLogin(!isLogin)}
                                                             className="text-pink-600 hover:text-pink-800 font-medium hover:underline transition-colors"
                                                         >
-                                                            {isLogin ? "Regístrate aquí" : "Inicia sesión aquí"}
+                                                            {isLogin ? t("Regístrate aquí") : t("Inicia sesión aquí")}
                                                         </button>
                                                     </p>
                                                 </div>

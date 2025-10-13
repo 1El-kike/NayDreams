@@ -116,8 +116,7 @@ export const ErrorsPage = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.8 }}
                 >
-                    Lo sentimos, la página que buscas no existe o ha sido movida.
-                    No te preocupes, te ayudamos a volver al camino correcto.
+                    {t("Lo sentimos, la página que buscas no existe o ha sido movida. No te preocupes, te ayudamos a volver al camino correcto.")}
                 </motion.p>
 
                 {/* Botones */}

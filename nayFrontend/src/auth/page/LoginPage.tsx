@@ -18,19 +18,19 @@ export const LoginPage = () => {
                         {t("Login")}
                     </h1>
                     <p className="text-gray-600 ml-5 mt-2">
-                        Ingresa tus credenciales
+                        {t("Ingresa tus credenciales para continuar")}
                     </p>
                 </CardHeader>
                 <CardBody className="pt-0">
                     <LoginForm />
                     <div className="mt-6 text-center">
                         <p className="text-sm text-gray-600">
-                            ¿No tienes cuenta?{" "}
+                            {t("¿No tienes cuenta?")}
                             <Link
                                 to="/auth/register"
                                 className="text-rose-600 hover:text-rose-800 font-medium hover:underline transition-colors"
                             >
-                                Regístrate aquí
+                                {t("Regístrate aquí")}
                             </Link>
                         </p>
                     </div>

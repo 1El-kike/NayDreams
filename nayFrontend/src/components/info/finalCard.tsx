@@ -1,9 +1,11 @@
 import { Button } from "@heroui/react"
 import { useNavigate } from "react-router-dom"
+import { useTranslation } from "react-i18next"
 
 
 export const FinalCard = () => {
     const navigate = useNavigate()
+    const { t } = useTranslation()
 
     return (
         <section className="py-20 px-4">
@@ -13,17 +15,17 @@ export const FinalCard = () => {
                     data-aos="zoom-in"
                 >
                     <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                        ¿Listo para crear algo increíble?
+                        {t("Ready to create something amazing?")}
                     </h2>
                     <p className="text-xl mb-8 leading-relaxed">
-                        Contáctanos hoy mismo y cuéntanos sobre tu proyecto. Estamos aquí para ayudarte a hacerlo realidad.
+                        {t("Contact us today and tell us about your project. We're here to help you make it a reality.")}
                     </p>
                     <Button
                         size="lg"
                         onPress={() => navigate('/contact')}
                         className="bg-white text-pink-600 hover:bg-pink-50 px-8 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg"
                     >
-                        Contáctanos
+                        {t("Contact Us")}
                     </Button>
                 </div>
             </div>
