@@ -8,6 +8,7 @@ import { useAuth } from "../../auth/useAuth";
 import { port } from "../../config/env";
 import { useTranslation } from "react-i18next";
 import type { Product } from "../../hooks/useProducts";
+import { RelatedProducts } from "./RelatedProducts";
 
 // Función para obtener todas las imágenes disponibles del producto
 const getProductImages = (product: any) => {
@@ -262,7 +263,7 @@ export const ProductDetail = () => {
                                 transition={{ duration: 0.3 }}
                                 className="mt-8"
                             >
-                                <div className="max-w-4xl mx-auto space-y-8">
+                                <div className="max-w-7xl mx-auto space-y-8">
                                     <Card className="p-8 shadow-lg border-0 bg-white/80 backdrop-blur-sm">
                                         <CardBody className="space-y-6">
                                             <h3 className="text-2xl font-bold bg-gradient-to-r from-pink-600 to-pink-400 bg-clip-text text-transparent">
@@ -352,7 +353,7 @@ export const ProductDetail = () => {
                                 transition={{ duration: 0.3 }}
                                 className="mt-8"
                             >
-                                <div className="max-w-4xl mx-auto space-y-8">
+                                <div className="max-w-6xl mx-auto space-y-8">
                                     {/* Write Review Form */}
                                     {currentUser ? (
                                         <Card className="p-6 shadow-lg border-0 bg-white/80 backdrop-blur-sm">
@@ -469,18 +470,16 @@ export const ProductDetail = () => {
                     </Tabs>
                 </motion.div>
 
-                {/* Related Products Placeholder */}
+                {/* Related Products */}
                 <motion.div
                     initial={{ opacity: 0, y: 50 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.8 }}
                 >
-                    <h2 className="text-3xl font-bold bg-gradient-to-r from-pink-600 to-pink-400 bg-clip-text text-transparent mb-8 text-center">
-                        {t("Related Products")}
-                    </h2>
-                    <div className="text-center text-gray-500">
-                        {t("Coming soon...")}
-                    </div>
+                    <RelatedProducts
+                        currentProductId={product.id}
+                        categoryId={product.categoryId}
+                    />
                 </motion.div>
             </div>
         </motion.div>

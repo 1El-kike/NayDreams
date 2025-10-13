@@ -8,8 +8,8 @@ export const createReview = async (
 ): Promise<void> => {
   try {
     const { productId, rating, comment } = req.body;
-    const userId = (req as any).user?.id; // Obtener userId del middleware de autenticación
-    console.log(userId);
+    const userId = (req as any).user?.userId; // Obtener userId del middleware de autenticación
+
     if (!userId) {
       res.status(401).json({ message: "Authentication required" });
       return;

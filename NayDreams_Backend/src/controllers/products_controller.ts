@@ -195,7 +195,6 @@ export const updateProduct = async (
 
     res.status(200).json(product);
   } catch (error) {
-    console.error("Error updating product:", error);
     next(res.status(500).json({ message: "Error updating product" }));
   }
 };
