@@ -6,6 +6,7 @@ import { Section1 } from "../components/envolturas/section1";
 import { Section2 } from "../components/envolturas/section2";
 import { VideoGallery } from "../components/envolturas/videoGallery";
 import { HeroSection } from "../widget/heroSection";
+import { useNavigate } from "react-router-dom";
 
 export interface TypeVideo {
     id: number;
@@ -62,6 +63,8 @@ export const EnvolturaPage = () => {
         }
     ];
 
+    const navigate = useNavigate()
+
     return (
         <div className="min-h-screen bg-gradient-to-br from-pink-50 to-rose-50">
             {/* Hero Section */}
@@ -93,10 +96,10 @@ export const EnvolturaPage = () => {
                             {t("Contáctanos hoy y comienza tu proyecto personalizado. Te mostraremos cómo cuidamos cada detalle.")}
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <button className="bg-white text-pink-600 hover:bg-pink-50 px-8 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg">
+                            <button onClick={() => navigate('/products')} className="bg-white text-pink-600 hover:bg-pink-50 px-8 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg">
                                 {t("Ver Productos")}
                             </button>
-                            <button className="border-2 border-white text-white hover:bg-white hover:text-pink-600 px-8 py-3 rounded-full font-semibold transition-all duration-300 shadow-lg">
+                            <button onClick={() => navigate('/contact')} className="border-2 border-white text-white hover:bg-white hover:text-pink-600 px-8 py-3 rounded-full font-semibold transition-all duration-300 shadow-lg">
                                 {t("Contáctanos")}
                             </button>
                         </div>

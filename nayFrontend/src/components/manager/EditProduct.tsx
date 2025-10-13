@@ -62,26 +62,29 @@ export const EditProduct: FC<EditProp> = ({ setSelectedProduct, selectedProduct,
 
     const onEditSubmit = async (data: any) => {
         if (!selectedProduct) return;
-        const images = [data.images];
-        const datosDefault = {
-            name: selectedProduct.name,
-            description: selectedProduct.description,
-            price: selectedProduct.price,
-            stock: selectedProduct.stock,
-            categoryId: selectedProduct.categoryId,
-            images: imgfilter.map((img, index) => new File([`image${index === 0 ? '' : index + 1}`], img))
-        }
 
-        console.log(datosDefault, data)
-        if (JSON.stringify(datosDefault) === JSON.stringify(data)) {
+        // Comparar cambios básicos (sin imágenes)
+        const hasBasicChanges = (
+            data.name !== selectedProduct.name ||
+            data.description !== selectedProduct.description ||
+            data.price !== selectedProduct.price ||
+            data.stock !== selectedProduct.stock ||
+            data.categoryId !== selectedProduct.categoryId
+        );
+
+        // Verificar si hay nuevas imágenes
+        const hasNewImages = data.images && data.images.length > 0;
+
+        if (!hasBasicChanges && !hasNewImages) {
             addToast({
                 title: t("Error!"),
                 description: t("No changes"),
                 color: "danger",
                 timeout: 5000,
             });
-            return
+            return;
         }
+
         const formData = new FormData();
         formData.append('name', data.name);
         formData.append('description', data.description);
@@ -89,10 +92,11 @@ export const EditProduct: FC<EditProp> = ({ setSelectedProduct, selectedProduct,
         formData.append('stock', data.stock.toString());
         formData.append('categoryId', data.categoryId.toString());
 
-        if (data.images && images.length > 0) {
-            images.forEach((file: File, index: number) => {
-                console.log(`image${index === 0 ? '' : index + 1}`)
-                formData.append(`image${index === 0 ? '' : index + 1}`, file);
+        // Si hay nuevas imágenes, enviarlas
+        if (hasNewImages) {
+            Array.from(data.images as FileList).forEach((file: File, index: number) => {
+                const fieldName = index === 0 ? 'image' : `image${index + 1}`;
+                formData.append(fieldName, file);
             });
         }
 

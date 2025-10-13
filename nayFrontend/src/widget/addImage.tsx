@@ -30,19 +30,21 @@ export const Images: React.FC<Typeimage> = ({ data, label, imagenDefault, requir
       if (imagenDefault) {
         if (!multiple) {
           setImagePreviews([PUBLIC_URL + imagenDefault]);
-          setValue(data, imagenDefault);
+          setValue(data, null); // No setear valor para permitir cambio
         } else {
           const img = Array.isArray(imagenDefault) ? imagenDefault as string[] : [imagenDefault]
           const result = img.map((item) => {
             return port + item
           })
           setImagePreviews(result);
-          setValue(data, [imagenDefault]);
+          setValue(data, []); // No setear archivos para permitir cambio
         }
-
+      } else {
+        setImagePreviews([]);
+        setValue(data, multiple ? [] : null);
       }
     }
-  }, [imagenDefault, isSubmitting]);
+  }, [imagenDefault, isSubmitting, setValue, multiple, data]);
 
   useEffect(() => {
     if (isSubmitSuccessful) {
@@ -53,13 +55,14 @@ export const Images: React.FC<Typeimage> = ({ data, label, imagenDefault, requir
 
   useEffect(() => {
     const subscription = watch((value) => {
-      if (!value[data]) {
+      // Solo limpiar si no hay imagenDefault y no hay valor
+      if (!value[data] && !imagenDefault) {
         setImagePreviews([]);
       }
     });
 
     return () => subscription.unsubscribe();
-  }, [watch]);
+  }, [watch, imagenDefault]);
 
   const handleImage = async (files: FileList | null) => {
     if (files) {

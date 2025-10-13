@@ -116,9 +116,14 @@ export const updateProduct = async (
       price: price ? parseFloat(price) : undefined,
       stock: stock ? parseInt(stock) : undefined,
       categoryId: categoryId ? parseInt(categoryId) : undefined,
+      // Limpiar todas las imágenes existentes cuando se envían nuevas
+      image: null,
+      image2: null,
+      image3: null,
+      image4: null,
     };
 
-    // Manejar múltiples imágenes
+    // Manejar múltiples imágenes - solo asignar las nuevas
     if (files?.image?.[0])
       updateData.image = `uploads/${files.image[0].filename}`;
     if (files?.image2?.[0])
@@ -127,8 +132,6 @@ export const updateProduct = async (
       updateData.image3 = `uploads/${files.image3[0].filename}`;
     if (files?.image4?.[0])
       updateData.image4 = `uploads/${files.image4[0].filename}`;
-    if (files?.image5?.[0])
-      updateData.image5 = `uploads/${files.image5[0].filename}`;
 
     console.log(updateData, req.file, req.files);
 
