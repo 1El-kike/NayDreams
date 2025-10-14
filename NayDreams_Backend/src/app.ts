@@ -19,8 +19,11 @@ const corsOption = {
   origin: [
     envs.PRODUCION, // URL de producción
     envs.DEVELOPEMENT, // URL de desarrollo
+    "https://naydreams.netlify.app", // Agregar la URL de Netlify
   ].filter(Boolean),
   credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
 };
 
 // Ruta de la carpeta uploads
@@ -38,6 +41,7 @@ if (!fs.existsSync(uploadsDir)) {
 
 app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 app.use(cors(corsOption));
+app.options("*", cors(corsOption)); // Manejar preflight requests
 app.use(morgan("dev"));
 
 // REST API
