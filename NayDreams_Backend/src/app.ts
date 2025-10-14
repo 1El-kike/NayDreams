@@ -41,7 +41,6 @@ if (!fs.existsSync(uploadsDir)) {
 
 app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 app.use(cors(corsOption));
-app.options("*", cors(corsOption)); // Manejar preflight requests
 app.use(morgan("dev"));
 
 // REST API
