@@ -56,7 +56,7 @@ export const ProductCard: FC<TypeProduct> = ({ filteredProducts }) => {
                                 </h3>
                                 <div className="flex items-center mb-2">
                                     {Array.from({ length: 5 }, (_, i) => (
-                                        <span key={i} className={`text-lg ${i < ((product.id % 5) + 1) ? 'text-yellow-400' : 'text-gray-300'}`}>
+                                        <span key={i} className={`text-lg ${i < Math.floor(product.rating) ? 'text-yellow-400' : 'text-gray-300'}`}>
                                             ★
                                         </span>
                                     ))}
