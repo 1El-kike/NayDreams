@@ -10,8 +10,6 @@ export const envs = {
   REFRESH_SECRET: process.env.REFRESH_SECRET || "reftresh_secret",
   PRODUCION: process.env.URL_CORSC_PRODUCTION || "",
   DEVELOPEMENT: process.env.URL_CORSC_DEVELOPMENT || "",
-  PRODUCION_CLIENT: process.env.URL_CORSC_PRODUCTION_CLIENT || "",
-  DEVELOPEMENT_CLIENT: process.env.URL_CORSC_DEVELOPMENT_CLIENT || "",
   PASSWORD_SUPER_ADMIN: process.env.PASSWORD_SUPER_ADMIN || "",
   NAME_SUPER_ADMIN: process.env.NAME_SUPER_ADMIN || "",
   NUMBER_SUPER_ADMIN: process.env.NUMBER_SUPER_ADMIN || "",
