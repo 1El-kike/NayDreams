@@ -1,9 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Button, Select, SelectItem, addToast, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from "@heroui/react";
+import { Button, Select, SelectItem, addToast, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure, Spinner } from "@heroui/react";
 import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react";
 import { useCategories } from "../../hooks/useCategories";
 import { useDeleteCategory } from "../../hooks/useDeleteCategory";
+import { TrashIcon } from "@heroicons/react/24/outline";
 
 export const DeleteCategoryForm = () => {
     const { t } = useTranslation();
@@ -79,7 +80,7 @@ export const DeleteCategoryForm = () => {
                         <Button color="default" variant="light" onPress={onOpenChange}>
                             {t("Cancel")}
                         </Button>
-                        <Button color="danger" onPress={confirmDelete}>
+                        <Button startContent={deleteLoading ? <Spinner className="w-4 h-4" /> : <TrashIcon className="w-4 h-4" />} color="danger" onPress={confirmDelete}>
                             {t("Delete")}
                         </Button>
                     </ModalFooter>
