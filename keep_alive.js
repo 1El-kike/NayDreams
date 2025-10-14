@@ -17,8 +17,8 @@ function keepAlive() {
     });
 }
 
-// Hacer ping cada 10 minutos (600000 ms)
-setInterval(keepAlive, 600000);
+// Hacer ping cada 5 minutos (600000 ms)
+setInterval(keepAlive, 300000);
 
 // Hacer ping inicial
 keepAlive();

@@ -1,0 +1,17 @@
+name: Keep Server Alive
+
+on:
+  schedule:
+    # Ejecutar cada 10 minutos
+    - cron: "*/10 * * * *"
+  workflow_dispatch: # Permitir ejecución manual
+
+jobs:
+  ping-server:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Ping Server
+        run: |
+          echo "Pinging server at $(date)"
+          curl -f https://naydreams.onrender.com/ping || echo "Ping failed"
