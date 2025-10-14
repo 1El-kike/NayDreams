@@ -43,6 +43,13 @@ app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 app.use(cors(corsOption));
 app.use(morgan("dev"));
 
+// Endpoint para mantener el servidor activo
+app.get("/ping", (req, res) => {
+  res
+    .status(200)
+    .json({ message: "Server is alive", timestamp: new Date().toISOString() });
+});
+
 // REST API
 app.use("/auth", authRouter);
 app.use("/products", productsRouter);
