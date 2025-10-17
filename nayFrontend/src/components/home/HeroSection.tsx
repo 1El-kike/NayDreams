@@ -1,10 +1,9 @@
-import { Button, Image } from "@heroui/react";
+import { Button } from "@heroui/react";
 import { useTranslation } from "react-i18next";
 import NayDreamsIcon from "../../assets/naysDream.svg";
-import MarcoFrame from "../../assets/marco.png";
 import fondo from "../../assets/fondo.jpg";
-import flor from "../../assets/Nueva carpeta/flor.jpg";
-import flor2 from "../../assets/Nueva carpeta/flor2.png";
+import flor from "../../assets/media/flor.png";
+import flor2 from "../../assets/media/flor2.png";
 import { useNavigate } from "react-router-dom";
 
 export const HeroSection = () => {
@@ -32,23 +31,14 @@ export const HeroSection = () => {
 
                         {/* Logo with frame */}
                         <div
-                            className="relative before:absolute before:size-full before:inset-0 before:bg-white before:scale-75 before:content-[''] flex items-center justify-center"
+                            className="flex items-center justify-center"
                             data-aos="fade-up"
                             data-aos-delay="300"
                         >
-                            <Image
-                                isBlurred
-                                className="h-48 md:h-80 w-auto relative z-10"
-                                width={"100%"}
-                                alt="Frame"
-                                src={MarcoFrame}
-                            />
-
                             <img
                                 src={NayDreamsIcon}
                                 alt="Dreams"
-                                className="absolute h-24 md:h-40 w-auto z-20"
-                                style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
+                                className="h-52 w-auto z-20"
                             />
                         </div>
 
@@ -87,28 +77,28 @@ export const HeroSection = () => {
 
                 {/* Decorative elements */}
                 <div
-                    className="absolute top-16 left-6 w-20 h-20 bg-white/20 animate-pulse"
+                    className="absolute top-16 left-6 w-20 h-20 animate-pulse"
                     data-aos="fade-in"
                     data-aos-delay="800"
                 >
                     <img src={flor} className="w-20 h-20 opacity-50" alt="" />
                 </div>
                 <div
-                    className="absolute top-20 right-10  bg-white/30  animate-bounce"
+                    className="absolute top-20 right-10  animate-bounce"
                     data-aos="fade-in"
                     data-aos-delay="1000"
                 >
                     <img src={flor2} className="w-24 h-20 opacity-50" alt="" />
                 </div>
                 <div
-                    className="absolute bottom-10 left-1/4 w-12 h-12 bg-white/25 rounded-full animate-pulse"
+                    className="absolute bottom-10 left-1/4 w-12 h-12 rounded-full animate-pulse"
                     data-aos="fade-in"
                     data-aos-delay="1200"
                 >
 
                 </div>
                 <div
-                    className="absolute h-20 bottom-20 top-[62%] left-[3%]  bg-white animate-spinner-ease-spin"
+                    className="absolute h-20 bottom-20 top-[62%] left-[3%]  animate-spinner-ease-spin"
                     data-aos="fade-in"
                     data-aos-delay="1400"
                 >

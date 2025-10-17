@@ -3,7 +3,7 @@ import { SearchIcon } from "@heroui/shared-icons";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import fondo_lona from "../../assets/Nueva carpeta/900x/32.jpg";
+import fondo_lona from "../../assets/home/32.jpg";
 
 
 
