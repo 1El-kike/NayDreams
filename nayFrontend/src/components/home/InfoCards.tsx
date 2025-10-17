@@ -64,29 +64,35 @@ export const InfoCards = () => {
                     {cards.map((card, index) => (
                         <div
                             key={index}
-                            className="group bg-white hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100 rounded-2xl overflow-hidden relative"
+                            className="group bg-gradient-to-br from-pink-50 to-rose-50 hover:from-pink-100 hover:to-rose-100 hover:shadow-2xl hover:shadow-pink-200/30 transition-all duration-500 transform hover:-translate-y-2 border border-pink-200 rounded-3xl overflow-hidden relative"
                             data-aos="fade-up"
                             data-aos-delay={400 + index * 200}
                         >
-                            {/* Background gradient */}
-                            <div className={`absolute inset-0 bg-gradient-to-br ${card.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500`}></div>
+                            {/* Creative background pattern */}
+                            <div className="absolute inset-0 opacity-10">
+                                <div className="absolute top-4 left-4 w-8 h-8 bg-pink-200 rounded-full animate-pulse"></div>
+                                <div className="absolute top-8 right-8 w-6 h-6 bg-rose-200 rounded-full animate-bounce"></div>
+                                <div className="absolute bottom-6 left-6 w-4 h-4 bg-pink-300 rounded-full animate-ping"></div>
+                            </div>
 
                             <div className="p-8 text-center relative z-10">
-                                {/* Icon */}
-                                <div className="text-6xl mb-6 transform group-hover:scale-110 transition-transform duration-300">
-                                    {card.icon}
+                                {/* Icon with creative glow */}
+                                <div className="text-6xl mb-6 transform group-hover:scale-110 transition-transform duration-300 relative">
+                                    <div className="absolute inset-0 bg-pink-200 rounded-full blur-lg opacity-0 group-hover:opacity-30 transition-opacity duration-300"></div>
+                                    <span className="relative z-10">{card.icon}</span>
                                 </div>
 
                                 {/* Content */}
-                                <h3 className="text-2xl font-bold text-gray-800 mb-4 group-hover:text-pink-600 transition-colors duration-300">
+                                <h3 className="text-2xl font-bold text-gray-800 mb-4 group-hover:text-pink-700 transition-colors duration-300">
                                     {card.title}
                                 </h3>
-                                <p className="text-gray-600 leading-relaxed">
+                                <p className="text-gray-600 leading-relaxed group-hover:text-gray-700 transition-colors duration-300">
                                     {card.description}
                                 </p>
 
-                                {/* Decorative element */}
-                                <div className="absolute -bottom-2 -right-2 w-16 h-16 bg-pink-100 rounded-full opacity-0 group-hover:opacity-50 transition-opacity duration-500"></div>
+                                {/* Enhanced decorative elements */}
+                                <div className="absolute -bottom-4 -right-4 w-20 h-20 bg-gradient-to-br from-pink-200 to-rose-200 rounded-full opacity-20 group-hover:opacity-40 transition-opacity duration-500 animate-pulse"></div>
+                                <div className="absolute top-2 right-2 w-3 h-3 bg-pink-400 rounded-full opacity-50 group-hover:opacity-80 transition-opacity duration-300"></div>
                             </div>
                         </div>
                     ))}
