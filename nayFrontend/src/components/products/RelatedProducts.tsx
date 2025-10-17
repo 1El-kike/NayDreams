@@ -63,7 +63,7 @@ export const RelatedProducts = ({ currentProductId, categoryId }: RelatedProduct
                 </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2  sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {relatedProducts.map((product, index) => (
                     <motion.div
                         key={product.id}
@@ -79,7 +79,7 @@ export const RelatedProducts = ({ currentProductId, categoryId }: RelatedProduct
                                     <Image
                                         src={`${port}${product.image}` || "/placeholder.jpg"}
                                         alt={product.name}
-                                        className="w-full -z-10 h-48 aspect-video object-cover transition-transform duration-300 group-hover:scale-110"
+                                        className="w-full -z-10 h-36 md:h-48 aspect-video object-cover transition-transform duration-300 group-hover:scale-110"
                                     />
                                     <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
@@ -103,16 +103,16 @@ export const RelatedProducts = ({ currentProductId, categoryId }: RelatedProduct
                             </CardHeader>
 
                             <CardBody className="p-4">
-                                <div className="space-y-3">
+                                <div className="space-y-2 ">
                                     <h3 className="font-semibold text-gray-900 dark:text-white line-clamp-2 leading-tight group-hover:text-pink-600 transition-colors duration-200">
                                         {product.name}
                                     </h3>
 
-                                    <p className="text-sm text-gray-600 dark:text-gray-300 line-clamp-2">
+                                    <p className="text-sm hidden md:block text-gray-600 dark:text-gray-300 line-clamp-2">
                                         {product.description}
                                     </p>
 
-                                    <div className="flex items-center justify-between">
+                                    <div className="flex flex-col md:flex-row md:items-center justify-between">
                                         <span className="text-lg font-bold text-green-600 dark:text-green-400">
                                             ${product.price.toFixed(2)}
                                         </span>

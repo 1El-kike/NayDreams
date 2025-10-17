@@ -13,7 +13,7 @@ export const Productpage = () => {
                 title={t("Our Products")}
                 subTitle={t("Discover our collection of high-quality personalized products")}
             />
-            <div className="min-h-screen bg-gradient-to-br from-rose-50/10 to-white py-12 px-4 sm:px-6 lg:px-8">
+            <div className="min-h-screen  bg-pink-200/50 py-12 px-4 sm:px-6 lg:px-8">
                 <Routes>
                     <Route index element={<Navigate to="/products/watch" replace />} />
                     <Route path="watch" element={<Product />} />

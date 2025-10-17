@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useForm, Controller, FormProvider } from "react-hook-form";
 import { Input, Button, Textarea, Select, SelectItem, addToast } from "@heroui/react";
 import { useTranslation } from "react-i18next";

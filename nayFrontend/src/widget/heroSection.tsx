@@ -10,7 +10,7 @@ export const HeroSection: FC<TypeTitle> = ({ title, subTitle }) => {
     const { t } = useTranslation();
 
     return (
-        <section className="relative py-12 md:py-20 px-4 overflow-hidden bg-gradient-to-br from-pink-600 via-pink-500 to-pink-400 text-white min-h-[30vh] md:min-h-[40vh]">
+        <section className="relative py-12 md:py-20 px-4 overflow-hidden bg-gradient-to-br from-pink-500 via-pink-400 to-pink-300 text-white min-h-[30vh] md:min-h-[40vh]">
             {/* Elementos decorativos animados */}
             <div className="absolute inset-0">
                 {/* Curvas elegantes en lugar de rayas */}
@@ -105,7 +105,7 @@ export const HeroSection: FC<TypeTitle> = ({ title, subTitle }) => {
                 <div className="relative">
                     {/* Título con efecto de brillo */}
                     <h1 className="text-4xl font-serif md:text-6xl font-bold mb-4 relative">
-                        <span className="relative z-10 bg-gradient-to-r from-white via-yellow-100 to-white bg-clip-text text-transparent animate-pulse">
+                        <span className="playwrite-de-sas relative z-10 bg-gradient-to-r from-white via-yellow-100 to-white bg-clip-text text-transparent animate-pulse">
                             {t(title)}
                         </span>
                         {/* Efecto de brillo detrás del texto */}
@@ -113,7 +113,7 @@ export const HeroSection: FC<TypeTitle> = ({ title, subTitle }) => {
                     </h1>
 
                     {/* Subtítulo */}
-                    <p className="text-xl md:text-2xl max-w-3xl mx-auto text-white/90 leading-relaxed">
+                    <p className="text-xl playwrite-de-sas md:text-2xl max-w-3xl mx-auto text-white/90 leading-relaxed">
                         {t(subTitle)}
                     </p>
                 </div>

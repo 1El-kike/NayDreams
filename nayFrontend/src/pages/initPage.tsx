@@ -6,9 +6,10 @@ import { InfoCards } from "../components/home/InfoCards";
 import { MapSection } from "../components/home/MapSection";
 import { FeaturedProducts } from "../components/home/FeaturedProducts";
 
+
 export const Init = () => {
     return (
-        <div className="min-h-screen">
+        <div className="min-h-screen relative">
             <HeroSection />
             <SearchBar />
             <InfoCards />

@@ -3,6 +3,9 @@ import { SearchIcon } from "@heroui/shared-icons";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import fondo_lona from "../../assets/Nueva carpeta/900x/32.jpg";
+
+
 
 export const SearchBar = () => {
     const { t } = useTranslation();
@@ -16,8 +19,11 @@ export const SearchBar = () => {
     };
 
     return (
-        <section className="py-12 px-4 bg-white" data-aos="fade-up">
-            <div className="max-w-4xl mx-auto">
+        <section className="relative  py-12 px-4 " data-aos="fade-up">
+
+            <img alt="Dreams fondo" className="absolute top-0 left-0 w-full  h-full object-cover  mask-radial-[100%100%]  mask-radial-from-25% mask-radial-at-top" src={fondo_lona} />
+
+            <div className="max-w-4xl mt-16 md:mt-96 font-serif mx-auto">
                 <div className="text-center mb-8" data-aos="fade-up" data-aos-delay="200">
                     <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
                         {t("Find Your Perfect Product")}

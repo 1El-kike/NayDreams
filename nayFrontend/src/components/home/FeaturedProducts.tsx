@@ -56,7 +56,7 @@ export const FeaturedProducts = () => {
                     </p>
                 </div>
 
-                <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
                     {loading ? (
                         <div className="col-span-full text-center py-8">
                             <p className="text-gray-600">{t("Loading products...")}</p>
@@ -78,18 +78,18 @@ export const FeaturedProducts = () => {
                                         <img
                                             src={product.image}
                                             alt={product.name}
-                                            className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
+                                            className="w-full h-32 sm:h-40 md:h-44 lg:h-48 object-cover group-hover:scale-110 transition-transform duration-300"
                                         />
                                         <div className="absolute top-2 right-2 bg-pink-500 text-white px-2 py-1 rounded-full text-xs font-semibold animate-pulse">
                                             {t(product.category)}
                                         </div>
                                     </div>
 
-                                    <div className="p-4">
-                                        <h3 className="font-semibold text-gray-800 mb-2 line-clamp-2">
+                                    <div className="p-3 md:p-4">
+                                        <h3 className="font-semibold text-gray-800 mb-2 line-clamp-2 text-sm md:text-base">
                                             {t(product.name)}
                                         </h3>
-                                        <p className="text-pink-600 font-bold text-lg mb-3">
+                                        <p className="text-pink-600 font-bold text-base md:text-lg mb-3">
                                             ${product.price}
                                         </p>
                                         <Button

@@ -25,8 +25,32 @@ export const InfoCards = () => {
     ];
 
     return (
-        <section className="py-16 px-4 bg-white" data-aos="fade-up">
-            <div className="max-w-7xl mx-auto">
+        <section className="py-16 px-4 font-serif relative overflow-hidden" data-aos="fade-up">
+            {/* Abstract Shapes */}
+            <div className="absolute inset-0 pointer-events-none">
+                {/* Floating circles */}
+                <div className="absolute top-10 left-10 w-20 h-20 bg-pink-200 rounded-full animate-bounce opacity-70"></div>
+                <div className="absolute top-20 right-20 w-16 h-16 bg-rose-300 rounded-full animate-pulse opacity-60"></div>
+                <div className="absolute bottom-20 left-1/4 w-12 h-12 bg-pink-300 rounded-full animate-ping opacity-50"></div>
+                <div className="absolute bottom-10 right-1/3 w-24 h-24 bg-rose-200 rounded-full animate-bounce opacity-40"></div>
+
+                {/* Geometric shapes */}
+                <div className="absolute top-1/3 left-1/4 w-0 h-0 border-l-[20px] border-r-[20px] border-b-[35px] border-l-transparent border-r-transparent border-b-pink-400 animate-spin opacity-60" style={{ animationDuration: '8s' }}></div>
+                <div className="absolute top-2/3 right-1/4 w-0 h-0 border-l-[15px] border-r-[15px] border-b-[26px] border-l-transparent border-r-transparent border-b-rose-500 animate-pulse opacity-50"></div>
+
+                {/* Curved shapes */}
+                <div className="absolute top-1/2 left-1/6 w-32 h-16 bg-pink-100 rounded-full animate-pulse opacity-30 transform rotate-45"></div>
+                <div className="absolute bottom-1/3 right-1/6 w-24 h-12 bg-rose-100 rounded-full animate-bounce opacity-40 transform -rotate-12"></div>
+
+                {/* Dots pattern */}
+                <div className="absolute top-1/4 right-1/6 flex space-x-2">
+                    <div className="w-3 h-3 bg-pink-400 rounded-full animate-ping"></div>
+                    <div className="w-2 h-2 bg-rose-400 rounded-full animate-pulse"></div>
+                    <div className="w-4 h-4 bg-pink-300 rounded-full animate-bounce"></div>
+                </div>
+            </div>
+
+            <div className="max-w-7xl mx-auto relative z-10">
                 <div className="text-center mb-12" data-aos="fade-up" data-aos-delay="200">
                     <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
                         {t("Why Choose Nay Dreams?")}

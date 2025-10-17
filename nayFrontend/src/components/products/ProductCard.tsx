@@ -29,7 +29,7 @@ export const ProductCard: FC<TypeProduct> = ({ filteredProducts }) => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
-                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
+                className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 lg:gap-8"
             >
                 {filteredProducts?.map((product, index) => (
                     <motion.div
@@ -50,42 +50,47 @@ export const ProductCard: FC<TypeProduct> = ({ filteredProducts }) => {
                                     />
                                 </div>
                             </CardBody>
-                            <CardFooter className="flex flex-col items-start p-6 bg-white">
-                                <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
-                                    {product.name}
-                                </h3>
-                                <div className="flex items-center mb-2">
-                                    {Array.from({ length: 5 }, (_, i) => (
-                                        <span key={i} className={`text-lg ${i < Math.floor(product.rating) ? 'text-yellow-400' : 'text-gray-300'}`}>
-                                            ★
-                                        </span>
-                                    ))}
+                            <CardFooter className="flex flex-col items-start p-4 md:p-6 bg-white">
+                                <div className="flex justify-between space-x-2 w-full">
+
+                                    <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
+                                        {product.name}
+                                    </h3>
+                                    <div className="flex items-center mb-2">
+                                        {Array.from({ length: 5 }, (_, i) => (
+                                            <span key={i} className={`text-sm md:text-lg ${i < Math.floor(product.rating) ? 'text-yellow-400' : 'text-gray-300'}`}>
+                                                ★
+                                            </span>
+                                        ))}
+                                    </div>
                                 </div>
-                                <p className="text-sm text-gray-600 mb-3 line-clamp-3">
+                                <p className="text-xs hidden md:block  md:text-sm text-gray-600 mb-3 line-clamp-3">
                                     {product.description}
                                 </p>
                                 <div className="flex items-center justify-between w-full">
-                                    <span className="text-2xl font-bold text-pink-600">
+                                    <span className="text-xl md:text-2xl font-bold text-pink-600">
                                         ${product.price.toFixed(2)}
                                     </span>
-                                    <span className="text-sm text-gray-500">
+                                    <span className="text-xs md:text-sm text-gray-500">
                                         Stock: {product.stock}
                                     </span>
                                 </div>
-                                <div className="flex gap-2 mt-4 w-full">
+                                <div className="flex flex-col sm:flex-row gap-2 mt-4 w-full">
                                     <Button
                                         color="primary"
                                         variant="solid"
                                         onPress={() => handleSend(product)}
-                                        className="flex-1 bg-gradient-to-r from-pink-500 to-pink-400 hover:from-pink-600 hover:to-pink-700 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300"
+                                        className="flex-1 bg-gradient-to-r from-pink-500 to-pink-400 hover:from-pink-600 hover:to-pink-700 text-white font-semibold py-1.5 md:py-2 px-3 md:px-4 rounded-lg transition-all duration-300 text-xs md:text-sm"
+                                        size="sm"
                                     >
                                         {t("To Order")}
                                     </Button>
                                     <Button
                                         color="secondary"
                                         variant="bordered"
-                                        className="flex-1 border-pink-500 text-pink-500 hover:bg-pink-50 font-semibold py-2 px-4 rounded-lg transition-all duration-300"
+                                        className="flex-1 border-pink-500 text-pink-500 hover:bg-pink-50 font-semibold py-1.5 md:py-2 px-3 md:px-4 rounded-lg transition-all duration-300 text-xs md:text-sm"
                                         onClick={() => navigate(`/products/watch/${product.id}`)}
+                                        size="sm"
                                     >
                                         {t("See More Details")}
                                     </Button>

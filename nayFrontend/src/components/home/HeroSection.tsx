@@ -3,6 +3,8 @@ import { useTranslation } from "react-i18next";
 import NayDreamsIcon from "../../assets/naysDream.svg";
 import MarcoFrame from "../../assets/marco.png";
 import fondo from "../../assets/fondo.jpg";
+import flor from "../../assets/Nueva carpeta/flor.jpg";
+import flor2 from "../../assets/Nueva carpeta/flor2.png";
 import { useNavigate } from "react-router-dom";
 
 export const HeroSection = () => {
@@ -11,16 +13,17 @@ export const HeroSection = () => {
 
     return (
         <section
-            className="relative bg-gradient-to-br from-pink-400 via-pink-500 to-pink-600 pb-20 px-4 overflow-hidden min-h-screen flex items-center"
+            className="relative bg-gradient-to-br from-pink-200 via-pink-300 to-pink-400 pb-20 px-4 overflow- min-h-screen flex items-center"
             data-aos="fade-in"
         >
+
             <img alt="Dreams fondo" className="absolute top-0 left-0 w-full h-full object-cover opacity-80 -z-10  mask-radial-[100%100%] mask-radial-from-75% mask-radial-at-left" src={fondo} />
 
-            <div className="max-w-7xl mx-auto text-center">
+            <div className="max-w-7xl md:mb-52 mx-auto text-center">
                 <div className="relative z-10">
                     <div className="flex flex-col items-center mb-8">
                         <h1
-                            className="text-5xl md:text-7xl font-bold text-white mb-8 leading-tight drop-shadow-lg"
+                            className="playwrite-de-sas text-5xl md:text-7xl font-bold text-white mt-2 mb-8 leading-tight drop-shadow-lg"
                             data-aos="fade-up"
                             data-aos-delay="200"
                         >
@@ -52,7 +55,7 @@ export const HeroSection = () => {
                     </div>
 
                     <p
-                        className="text-xl md:text-2xl text-white/90 mb-8 max-w-3xl mx-auto drop-shadow-md"
+                        className="playwrite-de-sas text-xl md:text-2xl text-white/90 mb-8 max-w-3xl mx-auto drop-shadow-md"
                         data-aos="fade-up"
                         data-aos-delay="400"
                     >
@@ -84,25 +87,33 @@ export const HeroSection = () => {
 
                 {/* Decorative elements */}
                 <div
-                    className="absolute top-10 left-10 w-20 h-20 bg-white/20 rounded-full animate-pulse"
+                    className="absolute top-16 left-6 w-20 h-20 bg-white/20 animate-pulse"
                     data-aos="fade-in"
                     data-aos-delay="800"
-                ></div>
+                >
+                    <img src={flor} className="w-20 h-20 opacity-50" alt="" />
+                </div>
                 <div
-                    className="absolute top-20 right-20 w-16 h-16 bg-white/30 rounded-full animate-bounce"
+                    className="absolute top-20 right-10  bg-white/30  animate-bounce"
                     data-aos="fade-in"
                     data-aos-delay="1000"
-                ></div>
+                >
+                    <img src={flor2} className="w-24 h-20 opacity-50" alt="" />
+                </div>
                 <div
                     className="absolute bottom-10 left-1/4 w-12 h-12 bg-white/25 rounded-full animate-pulse"
                     data-aos="fade-in"
                     data-aos-delay="1200"
-                ></div>
+                >
+
+                </div>
                 <div
-                    className="absolute bottom-20 right-1/3 w-24 h-24 bg-white/20 rounded-full animate-bounce"
+                    className="absolute h-20 bottom-20 top-[62%] left-[3%]  bg-white animate-spinner-ease-spin"
                     data-aos="fade-in"
                     data-aos-delay="1400"
-                ></div>
+                >
+                    <img src={flor2} className="w-24 h-20 opacity-50" alt="" />
+                </div>
             </div>
 
             {/* Background pattern with marker gradient */}

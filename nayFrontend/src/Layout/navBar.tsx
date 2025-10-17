@@ -49,7 +49,7 @@ export const NavBar = () => {
 
 
     return (
-        <Navbar className="bg-gradient-to-r from-pink-500 to-pink-400 text-white" isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
+        <Navbar className="bg-gradient-to-r from-pink-300 to-pink-400 text-white" isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
             <NavbarContent className="sm:hidden " justify="start">
                 <NavbarMenuToggle aria-label={isMenuOpen ? "Close menu" : "Open menu"} />
             </NavbarContent>
