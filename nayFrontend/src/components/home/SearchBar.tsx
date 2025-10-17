@@ -24,7 +24,7 @@ export const SearchBar = () => {
             <section className=" py-12 px-4 " data-aos="fade-up">
                 <div className="max-w-4xl  font-serif mx-auto">
                     <div className="text-center mb-8" data-aos="fade-up" data-aos-delay="200">
-                        <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+                        <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-tr from-rose-400 bg-clip-text text-transparent to-purple-600 mb-4">
                             {t("Find Your Perfect Product")}
                         </h2>
                         <p className="text-gray-600 text-lg">

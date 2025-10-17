@@ -20,7 +20,7 @@ export const Layout = () => {
                 {/*   <Menu />  */}
                 <div className="w-full min-h-screen relative flex flex-col">
                     <NavBar />
-                    <main className="flex-1">
+                    <main className="flex-1 font-serif">
                         <div className="absolute inset-0">
                             {/* Curvas animadas de fondo */}
                             <svg className="absolute top-0 left-0 w-full h-full" viewBox="0 0 1200 800" fill="none" preserveAspectRatio="xMidYMid slice">

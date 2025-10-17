@@ -48,7 +48,7 @@ export const FeaturedProducts = () => {
         <section className="py-16 px-4 bg-gradient-to-br from-pink-50 via-rose-50 to-pink-100" data-aos="fade-up">
             <div className="max-w-7xl mx-auto">
                 <div className="text-center mb-12" data-aos="fade-up" data-aos-delay="200">
-                    <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+                    <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-tr from-rose-400 bg-clip-text text-transparent to-purple-600 mb-4">
                         {t("Featured Products")}
                     </h2>
                     <p className="text-gray-600 text-lg max-w-2xl mx-auto">

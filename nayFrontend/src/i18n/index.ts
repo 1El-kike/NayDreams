@@ -126,7 +126,7 @@ const resources = {
       Pullovers: "Pullovers",
       Personalized: "Personalized",
       "Photo Rock": "Photo Rock",
-      "Why Choose Nay Dreams?": "Why Choose Nay Dreams?",
+      "Why Choose Nay's Dreams?": "Why Choose Nay's Dreams?",
       "Discover what makes our personalized products stand out from the rest":
         "Discover what makes our personalized products stand out from the rest",
       "Custom Design": "Custom Design",
@@ -350,7 +350,7 @@ const resources = {
       Pullovers: "Sudaderas",
       Personalized: "Personalizado",
       "Photo Rock": "Foto Roca",
-      "Why Choose Nay Dreams?": "¿Por qué elegir Nay Dreams?",
+      "Why Choose Nay's Dreams?": "¿Por qué elegir Nay's Dreams?",
       "Discover what makes our personalized products stand out from the rest":
         "Descubre qué hace que nuestros productos personalizados destaquen del resto",
       "Custom Design": "Diseño Personalizado",

@@ -50,10 +50,10 @@ export const InfoCards = () => {
                 </div>
             </div>
 
-            <div className="max-w-7xl mx-auto relative z-10">
+            <div className="max-w-7xl  mx-auto relative z-10">
                 <div className="text-center mb-12" data-aos="fade-up" data-aos-delay="200">
-                    <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-                        {t("Why Choose Nay Dreams?")}
+                    <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-tr from-rose-400 bg-clip-text text-transparent to-purple-600 mb-4">
+                        {t("Why Choose Nay's Dreams?")}
                     </h2>
                     <p className="text-gray-600 text-lg max-w-2xl mx-auto">
                         {t("Discover what makes our personalized products stand out from the rest")}
