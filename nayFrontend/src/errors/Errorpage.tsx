@@ -8,7 +8,7 @@ export const ErrorsPage = () => {
     const { t } = useTranslation();
 
     const handleBack = () => {
-        navigate(-2);
+        navigate(-3);
     };
 
     const handleGoHome = () => {
