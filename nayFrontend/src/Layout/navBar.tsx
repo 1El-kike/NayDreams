@@ -35,7 +35,7 @@ export const NavBar = () => {
             { name: t("Management"), link: '/products/management' },
             { name: t("About"), link: '/info' },
             { name: t("Contact"), link: "/contact" },
-            { name: t("Wrappers"), link: '/envoltura' },
+            //    { name: t("Wrappers"), link: '/envoltura' },
             { name: t("Log Out"), link: "" },
         ]
         : [
@@ -43,7 +43,7 @@ export const NavBar = () => {
             { name: t("Products"), link: '/products' },
             { name: t("About"), link: '/info' },
             { name: t("Contact"), link: "/contact" },
-            { name: t("Wrappers"), link: '/envoltura' },
+            //  { name: t("Wrappers"), link: '/envoltura' },
             { name: t("Log Out"), link: "" },
         ];
 
@@ -86,11 +86,11 @@ export const NavBar = () => {
                         {t("Contact")}
                     </Link>
                 </NavbarItem>
-                <NavbarItem>
+                {/* <NavbarItem>
                     <Link className="text-white" to="/envoltura">
                         {t("Wrappers")}
                     </Link>
-                </NavbarItem>
+                </NavbarItem> */}
             </NavbarContent>
             <NavbarContent justify="end" className="hidden sm:flex">
                 <NavbarItem>
@@ -192,7 +192,7 @@ export const NavBar = () => {
                                     {item.name === t("Management") && "⚙️"}
                                     {item.name === t("About") && "ℹ️"}
                                     {item.name === t("Contact") && "📞"}
-                                    {item.name === t("Wrappers") && "🎁"}
+                                    {/*   {item.name === t("Wrappers") && "🎁"} */}
                                 </span>
                                 {item.name}
                             </Link>

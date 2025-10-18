@@ -88,14 +88,14 @@ export const PrivateRoutes = () => {
                         </SuspensedView>
                     }
                 ></Route>
-                <Route
+                {/* <Route
                     path="envoltura/*"
                     element={
                         <SuspensedView>
                             <EnvolturaPage />
                         </SuspensedView>
                     }
-                ></Route>
+                ></Route> */}
                 <Route path="*" element={<Navigate to="/error/404" />} />
             </Route>
         </Routes>

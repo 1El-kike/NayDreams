@@ -180,6 +180,18 @@ export const ProductDetail = () => {
                                             onClick={() => {
                                                 setSelectedImageIndex(index);
                                                 setIsAutoScrolling(true);
+                                                // Scroll to center the selected image
+                                                const thumbnailContainer = document.querySelector('.thumbnail-carousel');
+                                                if (thumbnailContainer) {
+                                                    const selectedThumbnail = thumbnailContainer.children[index] as HTMLElement;
+                                                    if (selectedThumbnail) {
+                                                        selectedThumbnail.scrollIntoView({
+                                                            behavior: 'smooth',
+                                                            block: 'nearest',
+                                                            inline: 'center'
+                                                        });
+                                                    }
+                                                }
                                                 // Reset auto-scroll after user interaction
                                                 setTimeout(() => setIsAutoScrolling(false), 5000);
                                             }}
