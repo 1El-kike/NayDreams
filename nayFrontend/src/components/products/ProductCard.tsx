@@ -53,7 +53,7 @@ export const ProductCard: FC<TypeProduct> = ({ filteredProducts }) => {
                             <CardFooter className="flex flex-col items-start p-4 md:p-6 bg-white">
                                 <div className="flex justify-between space-x-2 w-full">
 
-                                    <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
+                                    <h3 className="text-xs md:text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
                                         {product.name}
                                     </h3>
                                     <div className="flex items-center mb-2">
@@ -68,7 +68,7 @@ export const ProductCard: FC<TypeProduct> = ({ filteredProducts }) => {
                                     {product.description}
                                 </p>
                                 <div className="flex items-center justify-between w-full">
-                                    <span className="text-xl md:text-2xl font-bold text-pink-600">
+                                    <span className="text-base md:text-2xl font-bold text-pink-600">
                                         ${product.price.toFixed(2)}
                                     </span>
                                     <span className="text-xs md:text-sm text-gray-500">
@@ -92,7 +92,7 @@ export const ProductCard: FC<TypeProduct> = ({ filteredProducts }) => {
                                         onClick={() => navigate(`/products/watch/${product.id}`)}
                                         size="sm"
                                     >
-                                        {t("See More Details")}
+                                        {t("See Details")}
                                     </Button>
                                 </div>
                             </CardFooter>
