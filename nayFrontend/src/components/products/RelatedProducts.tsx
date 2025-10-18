@@ -2,7 +2,6 @@ import { Card, CardBody, CardHeader, Image, Button, Spinner } from "@heroui/reac
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useProducts } from "../../hooks/useProducts";
-import { port } from "../../config/env";
 import { useTranslation } from "react-i18next";
 import type { Product } from "../../hooks/useProducts";
 

@@ -2,7 +2,6 @@ import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, Image
 import { useTranslation } from "react-i18next";
 import { StarIcon } from "@heroicons/react/24/solid";
 import type { Product } from "../../hooks/useProducts";
-import { port } from "../../config/env";
 import { useEffect, useState } from "react";
 
 interface ViewProductModalProps {
