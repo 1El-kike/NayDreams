@@ -27,11 +27,11 @@ export const PrivateRoutes = () => {
             default: module.ContactPage,
         }))
     );
-    const EnvolturaPage = lazy(() =>
-        import("../pages/envolturaPage").then((module) => ({
-            default: module.EnvolturaPage,
-        }))
-    );
+    /*  const EnvolturaPage = lazy(() =>
+         import("../pages/envolturaPage").then((module) => ({
+             default: module.EnvolturaPage,
+         }))
+     ); */
     const CreateProductPage = lazy(() =>
         import("../pages/CreateProductPage").then((module) => ({
             default: module.CreateProductPage,
