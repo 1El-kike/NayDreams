@@ -2,7 +2,6 @@ import { Button, Card, CardBody, CardHeader, Chip } from "@heroui/react";
 import { useTranslation } from "react-i18next";
 import { EyeIcon, PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
 import type { Product } from "../../hooks/useProducts";
-import { port } from "../../config/env";
 
 interface ProductCardProps {
     product: Product;
