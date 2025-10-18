@@ -23,7 +23,7 @@ export const ProductCard = ({ product, index, onView, onEdit, onDelete }: Produc
             <CardHeader className="pb-0 relative">
                 <div className="relative overflow-hidden rounded-t-lg w-full">
                     <img
-                        src={`${port}${product.image}` || "/placeholder.jpg"}
+                        src={product.image || "/placeholder.jpg"}
                         alt={product.name}
                         className="w-full h-56 object-cover transition-transform duration-300 group-hover:scale-105"
                         style={{ width: '100%', height: '224px', objectFit: 'cover' }}

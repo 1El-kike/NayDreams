@@ -44,7 +44,7 @@ export const ProductCard: FC<TypeProduct> = ({ filteredProducts }) => {
                             <CardBody className="p-0">
                                 <div className="aspect-[4/3] overflow-hidden">
                                     <Image
-                                        src={product.image ? `${port}${product.image}` : `${port}description/image(2).png`}
+                                        src={product.image || `${port}description/image(2).png`}
                                         alt={product.name}
                                         className="w-full h-full rounded-none object-cover aspect-[4/3] hover:scale-110 transition-transform duration-300"
                                     />

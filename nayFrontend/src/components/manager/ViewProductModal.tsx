@@ -64,7 +64,7 @@ export const ViewProductModal = ({ isOpen, onOpenChange, product }: ViewProductM
                             <div className={`flex justify-center transition-all duration-700 delay-300 ${isVisible ? 'animate-in slide-in-from-left-4 fade-in' : 'opacity-0'}`}>
                                 <div className="relative group">
                                     <Image
-                                        src={`${port}${product.image}` || "/placeholder.jpg"}
+                                        src={product.image || "/placeholder.jpg"}
                                         alt={product.name}
                                         className="w-full max-w-md h-80 object-cover rounded-xl shadow-lg transition-all duration-500 group-hover:scale-105 group-hover:rotate-1"
                                     />
@@ -114,8 +114,8 @@ export const ViewProductModal = ({ isOpen, onOpenChange, product }: ViewProductM
                                                 <StarIcon
                                                     key={i}
                                                     className={`w-5 h-5 transition-all duration-300 ${i < Math.floor(product.rating)
-                                                            ? "text-yellow-400 fill-current animate-pulse"
-                                                            : "text-gray-300"
+                                                        ? "text-yellow-400 fill-current animate-pulse"
+                                                        : "text-gray-300"
                                                         }`}
                                                     style={{ animationDelay: `${i * 100}ms` }}
                                                 />

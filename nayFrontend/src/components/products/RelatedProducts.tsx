@@ -77,7 +77,7 @@ export const RelatedProducts = ({ currentProductId, categoryId }: RelatedProduct
                             <CardHeader className="pb-0">
                                 <div className="relative overflow-hidden rounded-t-lg">
                                     <Image
-                                        src={`${port}${product.image}` || "/placeholder.jpg"}
+                                        src={product.image || "/placeholder.jpg"}
                                         alt={product.name}
                                         className="w-full -z-10 h-36 md:h-48 aspect-video object-cover transition-transform duration-300 group-hover:scale-110"
                                     />

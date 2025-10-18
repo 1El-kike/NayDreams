@@ -14,4 +14,7 @@ export const envs = {
   NAME_SUPER_ADMIN: process.env.NAME_SUPER_ADMIN || "",
   NUMBER_SUPER_ADMIN: process.env.NUMBER_SUPER_ADMIN || "",
   EMAIL_SUPER_ADMIN: process.env.EMAIL_SUPER_ADMIN || "",
+  CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME || "",
+  CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY || "",
+  CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET || "",
 };

@@ -155,7 +155,7 @@ export const ProductDetail = () => {
                     >
                         <div className="aspect-square overflow-hidden rounded-2xl shadow-lg">
                             <Image
-                                src={productImages[selectedImageIndex] ? `${port}${productImages[selectedImageIndex]}` : `${port}description/image(2).png`}
+                                src={productImages[selectedImageIndex] || `${port}description/image(2).png`}
                                 alt={product.name}
                                 className="w-full h-full object-cover aspect-square hover:scale-105 transition-transform duration-300"
                             />
@@ -197,7 +197,7 @@ export const ProductDetail = () => {
                                             }}
                                         >
                                             <Image
-                                                src={`${port}${img}`}
+                                                src={img}
                                                 alt={`${product.name} ${index + 1}`}
                                                 className="w-full h-full object-cover aspect-square transition-transform duration-300"
                                             />

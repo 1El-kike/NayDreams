@@ -1,10 +1,8 @@
 import express from "express";
 import http from "http";
 import { envs } from "./config/env.js";
-import path from "path";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
-import fs from "fs";
 import morgan from "morgan";
 import cors from "cors";
 import authRouter from "./routers/auth_router.js";
@@ -26,20 +24,11 @@ const corsOption = {
   allowedHeaders: ["Content-Type", "Authorization"],
 };
 
-// Ruta de la carpeta uploads
-const uploadsDir = path.join(process.cwd(), "uploads");
-
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.json());
 
-// Crear la carpeta si no existe
-if (!fs.existsSync(uploadsDir)) {
-  fs.mkdirSync(uploadsDir, { recursive: true }); // "recursive" crea subcarpetas si es necesario
-}
-
-app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 app.use(cors(corsOption));
 app.use(morgan("dev"));
 

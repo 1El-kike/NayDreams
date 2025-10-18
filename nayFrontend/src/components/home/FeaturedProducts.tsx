@@ -29,7 +29,7 @@ export const FeaturedProducts = () => {
                         id: product.id,
                         name: product.name,
                         price: product.price,
-                        image: product.image ? `${port}${product.image}` : '',
+                        image: product.image || '',
                         category: product.category?.name || 'Uncategorized'
                     }));
                     setFeaturedProducts(mappedProducts);

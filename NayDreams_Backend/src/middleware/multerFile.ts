@@ -1,22 +1,22 @@
 import express from "express";
 import multer from "multer";
-import path from "path";
-import fs from "fs";
+import { v2 as cloudinary } from "cloudinary";
+import { envs } from "../config/env.js";
 
-// Configuración del almacenamiento
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, path.join(process.cwd(), "uploads"));
-  },
-  filename: (req, file, cb) => {
-    cb(null, `${Date.now()}-${file.originalname}`);
-  },
+// Configurar Cloudinary
+cloudinary.config({
+  cloud_name: envs.CLOUDINARY_CLOUD_NAME,
+  api_key: envs.CLOUDINARY_API_KEY,
+  api_secret: envs.CLOUDINARY_API_SECRET,
 });
+
+// Configuración de multer para memoria (sin guardar localmente)
+const storage = multer.memoryStorage();
 
 // Inicializar multer
 const upload = multer({
   storage,
-  limits: { fileSize: 6000000 }, // Limitar a 3MB
+  limits: { fileSize: 6000000 }, // Limitar a 6MB
   fileFilter: (req, file, cb) => {
     const validTypes = ["image/jpeg", "image/png", "image/gif"];
     if (!validTypes.includes(file.mimetype)) {
@@ -26,38 +26,44 @@ const upload = multer({
   },
 });
 
-export const errorHandle = (
-  err: Error,
-  req: express.Request,
-  res: express.Response,
-  next: express.NextFunction
-) => {
-  // Limpiar archivos subidos en caso de error
-  const files = req.files as Express.Multer.File[];
-  if (files && Array.isArray(files)) {
-    files.forEach((file) => {
-      const filePath = path.join(process.cwd(), "uploads", file.filename);
-      try {
-        fs.unlinkSync(filePath);
-      } catch (error) {
-        console.error("Error deleting file:", error);
+// Función para subir imagen a Cloudinary
+export const uploadToCloudinary = (
+  buffer: Buffer,
+  filename: string
+): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    const uploadStream = cloudinary.uploader.upload_stream(
+      {
+        folder: "products",
+        public_id: `${Date.now()}-${filename}`,
+        resource_type: "image",
+      },
+      (error, result) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(result!.secure_url);
+        }
+      }
+    );
+    uploadStream.end(buffer);
+  });
+};
+
+// Función para eliminar imagen de Cloudinary
+export const deleteFromCloudinary = (publicId: string): Promise<void> => {
+  return new Promise((resolve, reject) => {
+    cloudinary.uploader.destroy(publicId, (error, result) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve();
       }
     });
-  } else if (req.file) {
-    const filePath = path.join(process.cwd(), "uploads", req.file.filename);
-    try {
-      fs.unlinkSync(filePath);
-    } catch (error) {
-      console.error("Error deleting file:", error);
-    }
-  }
-  next(err);
+  });
 };
 
 // Middleware para múltiples imágenes de producto
 export const uploadProductImages = upload.array("images", 8);
-
-// funcion pendiente a hacer para e;iminar las imagenes que se cambian a la hora de actualizar
-export const updateHandle = (req: Request, res: Response) => {};
 
 export default upload;
