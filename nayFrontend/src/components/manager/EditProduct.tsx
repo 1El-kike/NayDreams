@@ -37,6 +37,10 @@ export const EditProduct: FC<EditProp> = ({ setSelectedProduct, selectedProduct,
         selectedProduct?.image2 as string,
         selectedProduct?.image3 as string,
         selectedProduct?.image4 as string,
+        selectedProduct?.image5 as string,
+        selectedProduct?.image6 as string,
+        selectedProduct?.image7 as string,
+        selectedProduct?.image8 as string,
     ]
     const imgfilter = img.filter(img => img != null)
 
@@ -44,14 +48,11 @@ export const EditProduct: FC<EditProp> = ({ setSelectedProduct, selectedProduct,
 
     useEffect(() => {
         if (selectedProduct) {
-            //const file = imgfilter.map((img, index) => new File([`image${index === 0 ? '' : index + 1}`], img))
-
             setValue('name', selectedProduct.name);
             setValue('description', selectedProduct.description);
             setValue('price', selectedProduct.price);
             setValue('stock', selectedProduct.stock);
             setValue('categoryId', selectedProduct.categoryId);
-            // setValue('images', file)
             setEditModal(true);
         } else {
             setEditModal(false);
@@ -94,9 +95,8 @@ export const EditProduct: FC<EditProp> = ({ setSelectedProduct, selectedProduct,
 
         // Si hay nuevas imágenes, enviarlas
         if (hasNewImages) {
-            Array.from(data.images as FileList).forEach((file: File, index: number) => {
-                const fieldName = index === 0 ? 'image' : `image${index + 1}`;
-                formData.append(fieldName, file);
+            Array.from(data.images as FileList).forEach((file: File) => {
+                formData.append('images', file);
             });
         }
 

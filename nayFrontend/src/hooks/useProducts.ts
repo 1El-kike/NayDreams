@@ -13,6 +13,10 @@ export interface Product {
   image2: string | null;
   image3: string | null;
   image4: string | null;
+  image5: string | null;
+  image6: string | null;
+  image7: string | null;
+  image8: string | null;
   categoryId: number;
   category: {
     id: number;

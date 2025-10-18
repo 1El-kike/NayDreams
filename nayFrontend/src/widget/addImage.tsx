@@ -71,8 +71,8 @@ export const Images: React.FC<Typeimage> = ({ data, label, imagenDefault, requir
     if (files) {
       const fileArray = Array.from(files);
 
-      // Limitar a 4 imágenes si es múltiple
-      const limitedFiles = multiple && fileArray.length > 4 ? fileArray.slice(0, 4) : fileArray;
+      // Limitar a 8 imágenes si es múltiple
+      const limitedFiles = multiple && fileArray.length > 8 ? fileArray.slice(0, 8) : fileArray;
 
       try {
         const newPreviews = await Promise.all(
@@ -163,7 +163,7 @@ export const Images: React.FC<Typeimage> = ({ data, label, imagenDefault, requir
                   {t("or drag and drop")}
                 </p>
                 <p className="text-xs text-center text-gray-500">
-                  {multiple ? t("PNG, JPG, GIF up to 3MB (max 4 images)") : t("PNG, JPG, GIF up to 2MB")}
+                  {multiple ? t("PNG, JPG, GIF up to 3MB (max 8 images)") : t("PNG, JPG, GIF up to 2MB")}
                 </p>
               </div>
               <Controller

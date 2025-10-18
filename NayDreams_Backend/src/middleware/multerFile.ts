@@ -33,17 +33,15 @@ export const errorHandle = (
   next: express.NextFunction
 ) => {
   // Limpiar archivos subidos en caso de error
-  const files = req.files as { [fieldname: string]: Express.Multer.File[] };
-  if (files) {
-    Object.values(files).forEach((fileArray) => {
-      fileArray.forEach((file) => {
-        const filePath = path.join(process.cwd(), "uploads", file.filename);
-        try {
-          fs.unlinkSync(filePath);
-        } catch (error) {
-          console.error("Error deleting file:", error);
-        }
-      });
+  const files = req.files as Express.Multer.File[];
+  if (files && Array.isArray(files)) {
+    files.forEach((file) => {
+      const filePath = path.join(process.cwd(), "uploads", file.filename);
+      try {
+        fs.unlinkSync(filePath);
+      } catch (error) {
+        console.error("Error deleting file:", error);
+      }
     });
   } else if (req.file) {
     const filePath = path.join(process.cwd(), "uploads", req.file.filename);
@@ -57,12 +55,7 @@ export const errorHandle = (
 };
 
 // Middleware para múltiples imágenes de producto
-export const uploadProductImages = upload.fields([
-  { name: "image", maxCount: 1 },
-  { name: "image2", maxCount: 1 },
-  { name: "image3", maxCount: 1 },
-  { name: "image4", maxCount: 1 },
-]);
+export const uploadProductImages = upload.array("images", 8);
 
 // funcion pendiente a hacer para e;iminar las imagenes que se cambian a la hora de actualizar
 export const updateHandle = (req: Request, res: Response) => {};

@@ -36,21 +36,18 @@ export const createProduct = async (
   try {
     const { name, description, price, stock, categoryId, createdById } =
       req.body;
-    const files = req.files as { [fieldname: string]: Express.Multer.File[] };
+    const files = req.files as Express.Multer.File[];
 
-    // Extraer las imágenes
-    const image = files?.image?.[0]
-      ? `uploads/${files.image[0].filename}`
-      : null;
-    const image2 = files?.image2?.[0]
-      ? `uploads/${files.image2[0].filename}`
-      : null;
-    const image3 = files?.image3?.[0]
-      ? `uploads/${files.image3[0].filename}`
-      : null;
-    const image4 = files?.image4?.[0]
-      ? `uploads/${files.image4[0].filename}`
-      : null;
+    // Extraer las imágenes (hasta 8)
+    const images = files ? files.map((file) => `uploads/${file.filename}`) : [];
+    const image = images[0] || null;
+    const image2 = images[1] || null;
+    const image3 = images[2] || null;
+    const image4 = images[3] || null;
+    const image5 = images[4] || null;
+    const image6 = images[5] || null;
+    const image7 = images[6] || null;
+    const image8 = images[7] || null;
 
     const product = await prisma.product.create({
       data: {
@@ -60,6 +57,10 @@ export const createProduct = async (
         image2,
         image3,
         image4,
+        image5,
+        image6,
+        image7,
+        image8,
         price: parseFloat(price),
         stock: parseInt(stock),
         categoryId: parseInt(categoryId),
@@ -138,13 +139,17 @@ export const updateProduct = async (
     };
 
     // Si hay nuevas imágenes, eliminar las antiguas del sistema de archivos
-    if (files && Object.keys(files).length > 0) {
+    if (files && Array.isArray(files) && files.length > 0) {
       // Eliminar imágenes existentes si existen
       const imagesToDelete = [
         currentProduct.image,
         currentProduct.image2,
         currentProduct.image3,
         currentProduct.image4,
+        currentProduct.image5,
+        currentProduct.image6,
+        currentProduct.image7,
+        currentProduct.image8,
       ].filter((img) => img !== null);
 
       imagesToDelete.forEach((imagePath: string) => {
@@ -163,22 +168,31 @@ export const updateProduct = async (
       updateData.image2 = null;
       updateData.image3 = null;
       updateData.image4 = null;
+      updateData.image5 = null;
+      updateData.image6 = null;
+      updateData.image7 = null;
+      updateData.image8 = null;
 
-      // Asignar las nuevas imágenes
-      if (files?.image?.[0])
-        updateData.image = `uploads/${files.image[0].filename}`;
-      if (files?.image2?.[0])
-        updateData.image2 = `uploads/${files.image2[0].filename}`;
-      if (files?.image3?.[0])
-        updateData.image3 = `uploads/${files.image3[0].filename}`;
-      if (files?.image4?.[0])
-        updateData.image4 = `uploads/${files.image4[0].filename}`;
+      // Asignar las nuevas imágenes (hasta 8)
+      const newImages = files.map((file) => `uploads/${file.filename}`);
+      updateData.image = newImages[0] || null;
+      updateData.image2 = newImages[1] || null;
+      updateData.image3 = newImages[2] || null;
+      updateData.image4 = newImages[3] || null;
+      updateData.image5 = newImages[4] || null;
+      updateData.image6 = newImages[5] || null;
+      updateData.image7 = newImages[6] || null;
+      updateData.image8 = newImages[7] || null;
     } else {
       // Si no hay nuevas imágenes, mantener las existentes
       updateData.image = currentProduct.image;
       updateData.image2 = currentProduct.image2;
       updateData.image3 = currentProduct.image3;
       updateData.image4 = currentProduct.image4;
+      updateData.image5 = currentProduct.image5;
+      updateData.image6 = currentProduct.image6;
+      updateData.image7 = currentProduct.image7;
+      updateData.image8 = currentProduct.image8;
     }
 
     const product = await prisma.product.update({

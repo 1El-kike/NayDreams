@@ -1,7 +1,7 @@
-import { Button, Card, CardBody, Image, Spinner, Tabs, Tab, Textarea, Snippet, addToast } from "@heroui/react";
+import { Button, Card, CardBody, Image, Spinner, Tabs, Tab, Textarea, Snippet, addToast, Chip, ScrollShadow } from "@heroui/react";
 import { motion } from "framer-motion";
 import { useParams } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useProduct } from "../../hooks/useProduct";
 import { useReviews, useCreateReview } from "../../hooks/useReviews";
 import { useAuth } from "../../auth/useAuth";
@@ -18,6 +18,9 @@ const getProductImages = (product: any) => {
     if (product.image3) images.push(product.image3);
     if (product.image4) images.push(product.image4);
     if (product.image5) images.push(product.image5);
+    if (product.image6) images.push(product.image6);
+    if (product.image7) images.push(product.image7);
+    if (product.image8) images.push(product.image8);
     return images;
 };
 
@@ -35,9 +38,36 @@ export const ProductDetail = () => {
     });
 
     const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+    const [isAutoScrolling, setIsAutoScrolling] = useState(false);
 
     // Obtener todas las imágenes del producto
     const productImages = product ? getProductImages(product) : [];
+
+    // Auto-scroll effect for carousel
+    useEffect(() => {
+        if (productImages.length > 4 && !isAutoScrolling) {
+            const interval = setInterval(() => {
+                setSelectedImageIndex((prevIndex) => {
+                    const nextIndex = (prevIndex + 1) % productImages.length;
+                    // Scroll the thumbnail container to show the selected image
+                    const thumbnailContainer = document.querySelector('.thumbnail-carousel');
+                    if (thumbnailContainer) {
+                        const selectedThumbnail = thumbnailContainer.children[nextIndex] as HTMLElement;
+                        if (selectedThumbnail) {
+                            selectedThumbnail.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'nearest',
+                                inline: 'center'
+                            });
+                        }
+                    }
+                    return nextIndex;
+                });
+            }, 5000); // Change image every 5 seconds
+
+            return () => clearInterval(interval);
+        }
+    }, [productImages.length, isAutoScrolling]);
 
     const handleSubmitReview = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -121,7 +151,7 @@ export const ProductDetail = () => {
                         initial={{ opacity: 0, x: -50 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.6, delay: 0.4 }}
-                        className="space-y-4"
+                        className="space-y-4 group"
                     >
                         <div className="aspect-square overflow-hidden rounded-2xl shadow-lg">
                             <Image
@@ -131,21 +161,85 @@ export const ProductDetail = () => {
                             />
                         </div>
                         {productImages.length > 1 && (
-                            <div className="grid grid-cols-4 gap-2">
-                                {productImages.map((img, index) => (
-                                    <div
-                                        key={index}
-                                        className={`aspect-square overflow-hidden rounded-lg shadow-md cursor-pointer transition-all duration-300 ${selectedImageIndex === index ? 'ring-2 ring-pink-500 ring-offset-2' : ''
-                                            }`}
-                                        onClick={() => setSelectedImageIndex(index)}
-                                    >
-                                        <Image
-                                            src={`${port}${img}`}
-                                            alt={`${product.name} ${index + 1}`}
-                                            className="w-full h-full object-cover aspect-square hover:scale-110 transition-transform duration-300"
-                                        />
-                                    </div>
-                                ))}
+                            <div className="relative overflow-hidden">
+                                <ScrollShadow
+                                    hideScrollBar
+                                    orientation="horizontal"
+                                    onMouseEnter={() => setIsAutoScrolling(true)}
+                                    onMouseLeave={() => setIsAutoScrolling(false)}
+                                    onTouchStart={() => setIsAutoScrolling(true)}
+                                    onTouchEnd={() => setIsAutoScrolling(false)}
+                                    className="thumbnail-carousel flex gap-3 overflow-x-auto py-2 px-2 scroll-smooth"
+                                >
+
+                                    {productImages.map((img, index) => (
+                                        <div
+                                            key={index}
+                                            className={`flex-shrink-0 w-24 h-24 overflow-hidden rounded-xl shadow-lg cursor-pointer transition-all duration-300 hover:shadow-xl ${selectedImageIndex === index ? 'ring-2 ring-pink-500 ring-offset-2 scale-110 shadow-pink-200' : 'hover:scale-105'
+                                                }`}
+                                            onClick={() => {
+                                                setSelectedImageIndex(index);
+                                                setIsAutoScrolling(true);
+                                                // Reset auto-scroll after user interaction
+                                                setTimeout(() => setIsAutoScrolling(false), 5000);
+                                            }}
+                                        >
+                                            <Image
+                                                src={`${port}${img}`}
+                                                alt={`${product.name} ${index + 1}`}
+                                                className="w-full h-full object-cover aspect-square transition-transform duration-300"
+                                            />
+                                            {selectedImageIndex === index && (
+                                                <div className="absolute inset-0 bg-pink-500/20 rounded-xl flex items-center justify-center">
+                                                    <Chip
+                                                        size="sm"
+                                                        color="primary"
+                                                        variant="solid"
+                                                        className="absolute bottom-1 right-1 bg-white/90 text-pink-600 text-xs font-semibold"
+                                                    >
+                                                        {index + 1}
+                                                    </Chip>
+                                                </div>
+                                            )}
+                                        </div>
+                                    ))}
+                                </ScrollShadow>
+                                {/* Scroll indicators */}
+                                {/*  <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-white via-white/80 to-transparent pointer-events-none z-10"></div>
+                                <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-white via-white/80 to-transparent pointer-events-none z-10"></div> */}
+                                {/* Navigation arrows for carousel */}
+                                {productImages.length > 4 && (
+                                    <>
+                                        <button
+                                            title="Previous image"
+                                            aria-label="Previous image"
+                                            className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full p-2 shadow-lg z-20 transition-all duration-200 opacity-0 group-hover:opacity-100"
+                                            onClick={() => {
+                                                setSelectedImageIndex((prev) => (prev - 1 + productImages.length) % productImages.length);
+                                                setIsAutoScrolling(true);
+                                                setTimeout(() => setIsAutoScrolling(false), 5000);
+                                            }}
+                                        >
+                                            <svg className="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                                            </svg>
+                                        </button>
+                                        <button
+                                            title="Next image"
+                                            aria-label="Next image"
+                                            className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full p-2 shadow-lg z-20 transition-all duration-200 opacity-0 group-hover:opacity-100"
+                                            onClick={() => {
+                                                setSelectedImageIndex((prev) => (prev + 1) % productImages.length);
+                                                setIsAutoScrolling(true);
+                                                setTimeout(() => setIsAutoScrolling(false), 5000);
+                                            }}
+                                        >
+                                            <svg className="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                            </svg>
+                                        </button>
+                                    </>
+                                )}
                             </div>
                         )}
                     </motion.div>

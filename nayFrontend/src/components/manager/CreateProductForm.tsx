@@ -30,14 +30,10 @@ export const CreateProductForm = () => {
         formData.append('categoryId', data.categoryId.toString());
         formData.append('createdById', '1'); // TODO: Get from auth context
 
-        // Distribuir las imágenes en los campos correspondientes
+        // Agregar las imágenes como array
         if (data.images) {
-            Array.from(data.images).forEach((file, index) => {
-                if (index === 0) formData.append('image', file);
-                else if (index === 1) formData.append('image2', file);
-                else if (index === 2) formData.append('image3', file);
-                else if (index === 3) formData.append('image4', file);
-                else if (index === 4) formData.append('image5', file);
+            Array.from(data.images).forEach((file) => {
+                formData.append('images', file);
             });
         }
 

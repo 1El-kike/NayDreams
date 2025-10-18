@@ -10,7 +10,7 @@ export const ManagerSidebar = () => {
     const location = useLocation();
 
     return (
-        <div className="hidden md:block w-64 bg-pink-50 min-h-screen p-6 shadow-lg">
+        <div className="hidden z-30 md:block w-64 bg-pink-50 min-h-screen p-6 shadow-lg">
             <h2 className="text-2xl font-bold text-pink-700 mb-8">Gestión</h2>
             <nav className="space-y-4">
                 {menuItems.map((item) => (
